@@ -1,3 +1,6 @@
 {
-    "files": ["./src/index.tsx"]
+    "include": [
+        "./src/**/*.tsx",
+        "./src/**/*.ts"
+    ]
 }
