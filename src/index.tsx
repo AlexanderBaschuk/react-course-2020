@@ -1,4 +1,4 @@
 const text: string = "Hello world!"
 const helloWorld = () => {
-    document.body.textContent = text
+	document.body.textContent = text
 }
