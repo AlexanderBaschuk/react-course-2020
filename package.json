@@ -5,7 +5,9 @@
 	"author": "Alexander Baschuk",
 	"main": "index.js",
 	"scripts": {
-		"build": "npx webpack --mode production"
+		"build": "npx webpack --mode development",
+		"build-prod": "npx webpack --mode production",
+		"watch": "npx webpack --watch --mode development"
 	},
 	"repository": {
 		"type": "git",
