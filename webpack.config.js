@@ -15,6 +15,8 @@ module.exports = {
 		rules: [
 			{
 				loader: "babel-loader",
+				test: [/\.ts$/, /\.tsx$/],
+				include: path.join(__dirname, "src"),
 				exclude: /node_modules/
 			},
 		],
