@@ -15,13 +15,20 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				loader: "babel-loader",
+				test: /\.(ts|tsx)?$/,
+				enforce: "pre",
+				loader: "eslint-loader",
+				exclude: /node_modules/,
+				options: {
+					emitWarning: true,
+					configFile: "./.eslintrc.js"
+				}
+			},
+			{
 				test: /\.(ts|tsx)$/,
-				include: [
-					path.join(__dirname, "src")
-				],
+				loader: "babel-loader",
 				exclude: /node_modules/
-			  },
+			},
 		],
 	},
 	devServer: {
