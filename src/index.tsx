@@ -1,4 +1,4 @@
-import { getTime } from "./timeHelpers"
+import { getTime } from "./helpers"
 
 export const helloWorld = () => {
 	const text = getTime().toString() + " Hello world!"
