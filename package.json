@@ -16,6 +16,11 @@
 		"type": "git",
 		"url": "git+https://github.com/AlexanderBaschuk/react-course-2020.git"
 	},
+	"husky": {
+		"hooks": {
+			"pre-push": "npm test && npm run lint"
+		}
+	},
 	"devDependencies": {
 		"@babel/core": "^7.9.0",
 		"@babel/preset-env": "^7.9.0",
@@ -31,6 +36,7 @@
 		"eslint-plugin-prettier": "^3.1.2",
 		"eslint-plugin-react": "^7.19.0",
 		"html-webpack-plugin": "^4.0.3",
+		"husky": "^4.2.3",
 		"jest": "^25.2.7",
 		"react": "^16.13.1",
 		"typescript": "^3.8.3",
