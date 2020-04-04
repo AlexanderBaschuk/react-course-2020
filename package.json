@@ -7,7 +7,8 @@
 	"scripts": {
 		"build": "npx webpack --mode development",
 		"build-prod": "npx webpack --mode production",
-		"watch": "npx webpack --watch --mode development"
+		"watch": "npx webpack --watch --mode development",
+		"start": "webpack-dev-server --open"
 	},
 	"repository": {
 		"type": "git",

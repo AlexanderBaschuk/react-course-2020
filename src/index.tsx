@@ -1,7 +1,9 @@
 import { getTime } from "./timeHelpers"
 
-const text: string = "Hello world!"
-
 export const helloWorld = () => {
-	document.body.textContent = getTime().toString + text
+	const text = getTime().toString() + " Hello world!"
+	document.body.textContent = text
+	global.console.log(text)
 }
+
+helloWorld()
