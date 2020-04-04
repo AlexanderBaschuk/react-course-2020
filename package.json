@@ -5,8 +5,8 @@
 	"author": "Alexander Baschuk",
 	"main": "index.js",
 	"scripts": {
-		"build": "webpack --mode development",
-		"build-prod": "webpack --mode production",
+		"build": "npm run lint && webpack --mode development",
+		"build-prod": "npm run lint && webpack --mode production",
 		"lint": "eslint --ext .ts,.tsx --fix src/",
 		"start": "webpack-dev-server --mode=development",
 		"test": "jest",
