@@ -1,6 +1,6 @@
 {
-	"include": [
-		"./src/**/*.tsx",
-		"./src/**/*.ts"
-	]
+	"strict": true,
+	"sourceMap": true,
+	"jsx": "react",
+	"noImplicitReturns": true,
 }
