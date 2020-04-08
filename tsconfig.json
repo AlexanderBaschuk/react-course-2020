@@ -1,0 +1,6 @@
+{
+	"strict": true,
+	"sourceMap": true,
+	"jsx": "react",
+	"noImplicitReturns": true,
+}
