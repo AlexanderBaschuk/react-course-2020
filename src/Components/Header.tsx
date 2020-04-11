@@ -1,8 +1,9 @@
 import React from 'react'
-import { Component } from 'react'
 
-export class MyHeader extends Component {
-	render() {
-		return <h1>Hello World!</h1>
-	}
+interface MyHeaderProps {
+	count: number
 }
+
+export const MyHeader: React.FC<MyHeaderProps> = ({ count }) => (
+	<h1>Clicked {count} times!</h1>
+)

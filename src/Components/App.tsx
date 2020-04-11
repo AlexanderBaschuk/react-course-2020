@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { MyHeader } from './Header'
 import { MagicButton } from './MagicButton'
 
-const App: React.FC = () => (
-<>
-	<MyHeader />
-	<MagicButton />
-</>)
+interface Props {}
 
-export default App
+interface State {
+	count: number
+}
+
+export class App extends Component<Props, State> {
+	constructor() {
+		super(null)
+		this.state = {
+			count: 0,
+		}
+		this.increment = this.increment.bind(this)
+	}
+
+	increment() {
+		this.setState({
+			count: this.state.count + 1
+		})
+	}
+
+	render() {
+		return (
+			<>
+				<MyHeader count={this.state.count} />
+				<MagicButton increment={this.increment}/>
+			</>
+		)
+	}
+}
