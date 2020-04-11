@@ -1,0 +1,8 @@
+import React from 'react'
+import { Component } from 'react'
+
+export class MyHeader extends Component {
+	render() {
+		return <h1>Hello World!</h1>
+	}
+}

@@ -1,9 +1,5 @@
-import { getTime } from "./helpers"
+import { render } from 'react-dom'
+import React from 'react'
+import App from './Components/App'
 
-export const helloWorld = () => {
-	const text = getTime().toString() + " Hello world!"
-	document.body.textContent = text
-	global.console.log(text)
-}
-
-helloWorld()
+render(<App />, document.getElementById('root'))
