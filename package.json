@@ -8,7 +8,7 @@
 		"build": "npm run lint && webpack --mode development",
 		"build-prod": "npm run lint && webpack --mode production",
 		"lint": "eslint --ext .ts,.tsx --fix src/",
-		"start": "webpack-dev-server --mode=development",
+		"start": "webpack-dev-server --mode=development --hot --open",
 		"storybook": "start-storybook -p 6006",
 		"test": "jest",
 		"watch": "webpack --watch --mode development"
