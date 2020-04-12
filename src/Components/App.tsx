@@ -19,7 +19,7 @@ export class App extends Component<Props, State> {
 
 	increment() {
 		this.setState({
-			count: this.state.count + 1
+			count: this.state.count + 1,
 		})
 	}
 
@@ -27,7 +27,7 @@ export class App extends Component<Props, State> {
 		return (
 			<>
 				<MyHeader count={this.state.count} />
-				<MagicButton increment={this.increment}/>
+				<MagicButton increment={this.increment} count={this.state.count} />
 			</>
 		)
 	}

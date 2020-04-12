@@ -2,8 +2,12 @@ import React from 'react'
 
 interface MagicButtonProps {
 	increment: () => void
+	count: number
 }
 
-export const MagicButton: React.FC<MagicButtonProps> = ({ increment }) => (
-	<button onClick={increment}>Button</button>
-)
+export const MagicButton: React.FC<MagicButtonProps> = ({ increment, count }) => {
+	const bars = '|'.repeat(count)
+	return (
+	<button onClick={increment}>Button {bars}</button>
+)}
+
