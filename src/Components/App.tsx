@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MyHeader } from './Header'
+import { MyHeader } from './MyHeader'
 import { MagicButton } from './MagicButton'
 
 interface Props {}
