@@ -7,7 +7,10 @@
 	"scripts": {
 		"build": "npm run lint && webpack --mode development",
 		"build-prod": "npm run lint && webpack --mode production",
+		"build-storybook": "build-storybook",
 		"lint": "eslint --ext .ts,.tsx --fix src/",
+		"loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
+		"loki:update": "npm run build-storybook && npx loki update --requireReference --reactUri file:./storybook-static",
 		"start": "webpack-dev-server --mode=development --hot --open",
 		"storybook": "start-storybook -p 6006",
 		"test": "jest",
@@ -52,6 +55,7 @@
 		"html-webpack-plugin": "^4.0.3",
 		"husky": "^4.2.3",
 		"jest": "^25.2.7",
+		"loki": "^0.20.3",
 		"prettier": "^2.0.2",
 		"typescript": "^3.8.3",
 		"webpack": "^4.42.1",
@@ -61,5 +65,16 @@
 	"dependencies": {
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1"
+	},
+	"loki": {
+		"configurations": {
+			"chrome.laptop": {
+				"target": "chrome.app",
+				"width": 1366,
+				"height": 768,
+				"deviceScaleFactor": 1,
+				"mobile": false
+			}
+		}
 	}
 }
