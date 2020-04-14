@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -11,9 +11,21 @@ const getInitialState = (rowCount: number, colCount: number): boolean[][] =>
 	Array(rowCount).fill(Array(colCount).fill(false))
 
 const GameOfLife: React.FC<GameOfLifeProps> = ({ rowCount, colCount }) => {
-	const [field] = useState<Field>(getInitialState(rowCount, colCount))
+	const [field, setField] = useState<Field>([[false]])
 
-	return <>{field.map((row) => row.map((value) => value.toString()))}</>
+	useEffect(() => {
+		setField(getInitialState(rowCount, colCount))
+	}, [rowCount, colCount])
+
+	return (
+		<>
+			{field.map((row, i) => (
+				<div key={i} style={{ display: 'block' }}>
+					{row.map((value) => value.toString() + ' ')}
+				</div>
+			))}
+		</>
+	)
 }
 
 export default GameOfLife
