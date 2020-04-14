@@ -1,14 +1,12 @@
-import { withKnobs, boolean } from "@storybook/addon-knobs";
-import React from "react";
-import Cell from "./Cell";
+import { withKnobs, boolean, number } from '@storybook/addon-knobs'
+import React from 'react'
+import Cell from './Cell'
 
 export default {
 	title: 'Cell',
 	decorators: [withKnobs],
 }
 
-export const CellStory: React.FC = () => {
-	return (
-		<Cell isAlive={boolean('isAlive', false)} />
-	)
-}
+export const CellStory: React.FC = () => (
+	<Cell size={number('size', 10)} isAlive={boolean('isAlive', false)} />
+)
