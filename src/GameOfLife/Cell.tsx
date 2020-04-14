@@ -3,9 +3,10 @@ import React from 'react'
 interface CellProps {
 	size: number
 	isAlive: boolean
+	onClick: () => void
 }
 
-const Cell: React.FC<CellProps> = ({ size, isAlive }) => {
+const Cell: React.FC<CellProps> = ({ size, isAlive, onClick }) => {
 	const cellStyle = {
 		display: 'inline-block',
 		width: size,
@@ -13,7 +14,7 @@ const Cell: React.FC<CellProps> = ({ size, isAlive }) => {
 		backgroundColor: isAlive ? '#000' : '#EEE',
 	}
 
-	return <div style={cellStyle} />
+	return <div style={cellStyle} onClick={onClick} />
 }
 
 export default Cell
