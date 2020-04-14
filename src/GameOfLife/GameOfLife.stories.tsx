@@ -7,7 +7,7 @@ export default {
 	decorators: [withKnobs],
 }
 
-export const MagicButtonStory: React.FC = () => {
+export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife rowCount={number('rowCount', 5)} colCount={number('colCount', 5)} />
 	)
