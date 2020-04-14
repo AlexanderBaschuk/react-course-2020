@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Cell from './Cell'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -21,7 +22,9 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({ rowCount, colCount }) => {
 		<>
 			{field.map((row, i) => (
 				<div key={i} style={{ display: 'block' }}>
-					{row.map((value) => value.toString() + ' ')}
+					{row.map((value, j) => (
+						<Cell key={j} isAlive={value} />
+					))}
 				</div>
 			))}
 		</>
