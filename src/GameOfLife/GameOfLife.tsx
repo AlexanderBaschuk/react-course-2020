@@ -23,19 +23,18 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 		setField(getInitialState(rowCount, colCount))
 	}, [rowCount, colCount])
 
-	const fieldStyle = { display: 'block', padding: 0, height: cellSize }
+	const rowStyle = { display: 'block', padding: 0, height: cellSize }
 
-	const changeCell = (): void => {
-		setField([
-			[true, true],
-			[true, true],
-		])
+	const changeCell = (row: number, col: number) => () => {
+		const newField = field.map(currentRow => [...currentRow])
+		newField[row][col] = !newField[row][col]
+		setField(newField)
 	}
 
 	return (
 		<>
 			{field.map((row, i) => (
-				<div key={i} style={fieldStyle}>
+				<div key={i} style={rowStyle}>
 					{row.map((value, j) => (
 						<Cell
 							key={j}
@@ -43,7 +42,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 							column={j}
 							size={cellSize}
 							isAlive={value}
-							onClick={changeCell}
+							onClick={changeCell(i, j)}
 						/>
 					))}
 				</div>

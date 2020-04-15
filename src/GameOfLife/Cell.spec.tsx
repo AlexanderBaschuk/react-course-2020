@@ -39,5 +39,14 @@ describe('Game of Life field', () => {
 		expect(isAlive).toBeTruthy()
 	})
 
-	it.skip('should not change other cell color when a cell is clicked', () => {})
+	it('should not change other cells color when a cell is clicked', () => {
+		const field = mount(<GameOfLife rowCount={2} colCount={2} cellSize={10} />)
+		const initialCell = findCell(field, 0, 0)
+
+		initialCell.simulate('click')
+
+		expect(findCell(field, 0, 1).props().isAlive).toBeFalsy()
+		expect(findCell(field, 1, 0).props().isAlive).toBeFalsy()
+		expect(findCell(field, 1, 1).props().isAlive).toBeFalsy()
+	})
 })
