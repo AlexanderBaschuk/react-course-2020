@@ -25,12 +25,26 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 	const fieldStyle = { display: 'block', padding: 0, height: cellSize }
 
+	const changeCell = (): void => {
+		setField([
+			[true, true],
+			[true, true],
+		])
+	}
+
 	return (
 		<>
 			{field.map((row, i) => (
 				<div key={i} style={fieldStyle}>
 					{row.map((value, j) => (
-						<Cell key={j} size={cellSize} isAlive={value} />
+						<Cell
+							key={j}
+							row={i}
+							column={j}
+							size={cellSize}
+							isAlive={value}
+							onClick={changeCell}
+						/>
 					))}
 				</div>
 			))}

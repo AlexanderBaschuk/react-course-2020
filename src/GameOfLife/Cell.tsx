@@ -1,12 +1,14 @@
 import React from 'react'
 
 interface CellProps {
+	row?: number
+	column?: number
 	size: number
 	isAlive: boolean
 	onClick: () => void
 }
 
-const Cell: React.FC<CellProps> = ({ size, isAlive, onClick }) => {
+const Cell: React.FC<CellProps> = ({ row, column, size, isAlive, onClick }) => {
 	const cellStyle = {
 		display: 'inline-block',
 		width: size,
@@ -14,7 +16,14 @@ const Cell: React.FC<CellProps> = ({ size, isAlive, onClick }) => {
 		backgroundColor: isAlive ? '#000' : '#EEE',
 	}
 
-	return <div style={cellStyle} onClick={onClick} />
+	return (
+		<div
+			data-row={row}
+			data-column={column}
+			style={cellStyle}
+			onClick={onClick}
+		/>
+	)
 }
 
 export default Cell
