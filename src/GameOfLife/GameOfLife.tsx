@@ -12,6 +12,21 @@ type Field = boolean[][]
 const getInitialState = (rowCount: number, colCount: number): boolean[][] =>
 	Array(rowCount).fill(Array(colCount).fill(false))
 
+const invertOneCell = (field: Field, row: number, col: number): Field => {
+	const newField = field.map((currentRow) => [...currentRow])
+	newField[row][col] = !newField[row][col]
+	return newField
+}
+
+const calculateNextField = (field: Field): Field => {
+	const newField = field.map((currentRow) => [...currentRow])
+	for (let i = 0; i < field.length; i++)
+		for (let j = 0; j < field[i].length; j++) {
+			newField[i][j] = !field[i][j]
+		}
+	return newField
+}
+
 const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
@@ -24,10 +39,15 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 	}, [rowCount, colCount])
 
 	const rowStyle = { display: 'block', padding: 0, height: cellSize }
+	const buttonStyle = { height: 20, width: 100 }
 
 	const changeCell = (row: number, col: number) => () => {
-		const newField = field.map(currentRow => [...currentRow])
-		newField[row][col] = !newField[row][col]
+		const newField = invertOneCell(field, row, col)
+		setField(newField)
+	}
+
+	const playOneStep = () => {
+		const newField = calculateNextField(field)
 		setField(newField)
 	}
 
@@ -47,6 +67,7 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 					))}
 				</div>
 			))}
+			<button onClick={playOneStep}>Play 1 step</button>
 		</>
 	)
 }
