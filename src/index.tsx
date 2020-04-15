@@ -1,5 +1,8 @@
 import { render } from 'react-dom'
 import React from 'react'
-import { App } from './Components/App'
+import GameOfLife from './GameOfLife/GameOfLife'
 
-render(<App />, document.getElementById('root'))
+render(
+	<GameOfLife rowCount={10} colCount={10} cellSize={30} />,
+	document.getElementById('root'),
+)
