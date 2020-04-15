@@ -39,7 +39,6 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 	}, [rowCount, colCount])
 
 	const rowStyle = { display: 'block', padding: 0, height: cellSize }
-	const buttonStyle = { height: 20, width: 100 }
 
 	const changeCell = (row: number, col: number) => () => {
 		const newField = invertOneCell(field, row, col)
