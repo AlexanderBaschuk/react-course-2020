@@ -1,4 +1,4 @@
-import { countNeighbours } from './engine'
+import * as Engine from './engine'
 
 describe('countNeighbours', () => {
 	test('no neighbours of live cell', () => {
@@ -7,7 +7,7 @@ describe('countNeighbours', () => {
 			[false, true, false],
 			[false, false, false],
 		]
-		const actualResult = countNeighbours(field, 1, 1)
+		const actualResult = Engine.countNeighbours(field, 1, 1)
 		expect(actualResult).toBe(0)
 	})
 
@@ -17,7 +17,7 @@ describe('countNeighbours', () => {
 			[false, false, false],
 			[false, false, false],
 		]
-		const actualResult = countNeighbours(field, 1, 1)
+		const actualResult = Engine.countNeighbours(field, 1, 1)
 		expect(actualResult).toBe(0)
 	})
 
@@ -27,7 +27,7 @@ describe('countNeighbours', () => {
 			[true, true, false],
 			[false, true, true],
 		]
-		const actualResult = countNeighbours(field, 1, 1)
+		const actualResult = Engine.countNeighbours(field, 1, 1)
 		expect(actualResult).toBe(4)
 	})
 
@@ -37,7 +37,7 @@ describe('countNeighbours', () => {
 			[true, false, false],
 			[true, false, true],
 		]
-		const actualResult = countNeighbours(field, 1, 1)
+		const actualResult = Engine.countNeighbours(field, 1, 1)
 		expect(actualResult).toBe(5)
 	})
 
@@ -48,7 +48,7 @@ describe('countNeighbours', () => {
 			[false, false, false, true],
 			[false, false, false, true],
 		]
-		const actualResult = countNeighbours(field, 2, 1)
+		const actualResult = Engine.countNeighbours(field, 2, 1)
 		expect(actualResult).toBe(0)
 	})
 
@@ -59,7 +59,47 @@ describe('countNeighbours', () => {
 			[false, true, false, false],
 			[true, true, true, true],
 		]
-		const actualResult = countNeighbours(field, 0, 3)
+		const actualResult = Engine.countNeighbours(field, 0, 3)
 		expect(actualResult).toBe(4)
+	})
+})
+
+describe('calculateNextStep', () => {
+	test('Move glider in field', () => {
+		const initialField = [
+			[false, false, false, false, false],
+			[false, false, true, false, false],
+			[false, false, false, true, false],
+			[false, true, true, true, false],
+			[false, false, false, false, false],
+		]
+		const expectedNewField = [
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, true, false, true, false],
+			[false, false, true, true, false],
+			[false, false, true, false, false],
+		]
+		const actualNewField = Engine.calculateNextField(initialField)
+		expect(actualNewField).toStrictEqual(expectedNewField)
+	})
+
+	test('Move glider through edge', () => {
+		const initialField = [
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[false, false, false, false, true],
+			[true, false, false, false, false],
+			[true, false, false, true, true],
+		]
+		const expectedNewField = [
+			[false, false, false, false, true],
+			[false, false, false, false, false],
+			[false, false, false, false, false],
+			[true, false, false, true, false],
+			[true, false, false, false, true],
+		]
+		const actualNewField = Engine.calculateNextField(initialField)
+		expect(actualNewField).toStrictEqual(expectedNewField)
 	})
 })
