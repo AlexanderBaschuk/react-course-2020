@@ -8,7 +8,7 @@ interface CellProps {
 	onClick: () => void
 }
 
-const Cell: React.FC<CellProps> = ({ row, column, size, isAlive, onClick }) => {
+export const Cell: React.FC<CellProps> = ({ row, column, size, isAlive, onClick }) => {
 	const cellStyle = {
 		display: 'inline-block',
 		width: size,
@@ -25,5 +25,3 @@ const Cell: React.FC<CellProps> = ({ row, column, size, isAlive, onClick }) => {
 		/>
 	)
 }
-
-export default Cell

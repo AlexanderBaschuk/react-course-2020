@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Cell from './Cell'
-import {
-	getInitialState,
-	invertOneCell,
-	calculateNextField,
-} from './engine'
+import { Cell } from './components'
+import { getInitialState, invertOneCell, calculateNextField } from './engine'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -12,7 +8,7 @@ interface GameOfLifeProps {
 	cellSize: number
 }
 
-const GameOfLife: React.FC<GameOfLifeProps> = ({
+export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
 	cellSize,
@@ -55,5 +51,3 @@ const GameOfLife: React.FC<GameOfLifeProps> = ({
 		</>
 	)
 }
-
-export default GameOfLife

@@ -1,27 +1,6 @@
-import { mount } from 'enzyme'
+import { GameOfLife } from "./GameOfLife"
+import { mount } from "enzyme"
 import React from 'react'
-import Cell from './Cell'
-import GameOfLife from './GameOfLife'
-
-const liveCellColor = '#000'
-const deadCellColor = '#EEE'
-
-describe('Cell appearance', () => {
-	test.each`
-		isAlive  | expectedColor
-		${true}  | ${liveCellColor}
-		${false} | ${deadCellColor}
-	`(
-		'should have color $expectedColor when isAlive is $isAlive',
-		({ isAlive, expectedColor }) => {
-			const cell = mount(
-				<Cell size={10} isAlive={isAlive} onClick={jest.fn()} />,
-			)
-			const actualColor = cell.find('div').prop('style').backgroundColor
-			expect(actualColor).toBe(expectedColor)
-		},
-	)
-})
 
 const findCell = (field: any, row: number, column: number) => {
 	return field.find({ row, column })
