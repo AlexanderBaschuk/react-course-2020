@@ -1,37 +1,50 @@
 /*eslint-env node*/
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
-    "rules": {
-		"react/prop-types": 0
+	env: {
+		browser: true,
+		es6: true,
 	},
-	"settings": {
-		"react": {
-			"pragma": "React",
-			"version": "detect"
-		}
-	}
-};
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:@typescript-eslint/eslint-recommended',
+	],
+	globals: {
+		Atomics: 'readonly',
+		SharedArrayBuffer: 'readonly',
+	},
+	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		ecmaFeatures: {
+			jsx: true,
+		},
+		ecmaVersion: 2018,
+		parser: 'babel-eslint',
+		sourceType: 'module',
+	},
+	overrides: [
+		{
+			files: ['*.stories.tsx'],
+			rules: {
+				'no-restricted-syntax': ['off'],
+			},
+		},
+	],
+	plugins: ['react', '@typescript-eslint'],
+	rules: {
+		'no-restricted-syntax': [
+			'error',
+			{
+				selector: 'ExportDefaultDeclaration',
+				message: 'Restricted default export, prefer named exports!',
+			},
+		],
+		'react/prop-types': 0,
+	},
+	settings: {
+		react: {
+			pragma: 'React',
+			version: 'detect',
+		},
+	},
+}
