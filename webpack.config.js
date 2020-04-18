@@ -26,6 +26,10 @@ module.exports = {
 				},
 			},
 			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
 				test: /\.(ts|tsx)$/,
 				loader: require.resolve('babel-loader'),
 				exclude: /node_modules/,
