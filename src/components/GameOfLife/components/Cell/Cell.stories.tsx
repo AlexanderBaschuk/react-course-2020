@@ -1,7 +1,7 @@
 import { withKnobs, boolean, number } from '@storybook/addon-knobs'
 import React from 'react'
-import Cell from './Cell'
 import { action } from '@storybook/addon-actions'
+import { CellStyled } from './CellStyled'
 
 export default {
 	title: 'Cell',
@@ -9,5 +9,5 @@ export default {
 }
 
 export const CellStory: React.FC = () => (
-	<Cell size={number('size', 10)} isAlive={boolean('isAlive', false)} onClick={action('onClick')} />
+	<CellStyled size={number('size', 10)} isAlive={boolean('isAlive', false)} onClick={action('onClick')} />
 )
