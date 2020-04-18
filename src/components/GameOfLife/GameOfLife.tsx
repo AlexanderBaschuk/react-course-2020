@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getInitialState, invertOneCell, calculateNextField } from './engine'
-import { CellStyled } from './components/Cell/CellStyled'
+import { CellStyled } from './components'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -38,10 +38,10 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 					{row.map((value, j) => (
 						<CellStyled
 							key={j}
+							cellSize={cellSize}
+							isAlive={value}
 							data-row={i}
 							data-column={j}
-							size={cellSize}
-							isAlive={value}
 							onClick={changeCell(i, j)}
 						/>
 					))}
