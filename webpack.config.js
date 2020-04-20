@@ -7,7 +7,7 @@ module.exports = {
 	entry: './src/index.tsx',
 	devtool: 'source-map',
 	resolve: {
-		extensions: ['.js,', '.jsx', '.ts', '.tsx', '.json'],
+		extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
@@ -27,7 +27,7 @@ module.exports = {
 			},
 			{
 				test: /\.(ts|tsx)$/,
-				loader: 'babel-loader',
+				loader: require.resolve('babel-loader'),
 				exclude: /node_modules/,
 			},
 		],
