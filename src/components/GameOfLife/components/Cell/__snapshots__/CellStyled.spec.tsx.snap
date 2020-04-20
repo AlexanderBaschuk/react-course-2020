@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell snapshot test 1`] = `
+.emotion-0 {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+}
+
+<div
+  className="emotion-0"
+/>
+`;
+
+exports[`Cell snapshot test 2`] = `
+.emotion-0 {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+}
+
+<div
+  className="emotion-0"
+/>
+`;
+
+exports[`Cell snapshot test 3`] = `
+.emotion-0 {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #EEE;
+}
+
+<div
+  className="emotion-0"
+/>
+`;
