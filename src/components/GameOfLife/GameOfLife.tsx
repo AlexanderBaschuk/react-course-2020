@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { getInitialState, invertOneCell, calculateNextField } from './engine'
-import { CellStyled } from './components'
+import {
+	getInitialState,
+	invertOneCell,
+	calculateNextField,
+	// eslint-disable-next-line no-unused-vars
+	Field,
+} from './engine'
+import { GameField } from './components/GameField/GameField'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -13,7 +19,11 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	colCount,
 	cellSize,
 }) => {
-	const [field, setField] = useState<boolean[][]>([[]])
+	const [field, setField] = useState<Field>({
+		cells: [],
+		rowCount: 0,
+		colCount: 0,
+	})
 
 	const clear = useCallback((): void => {
 		setField(getInitialState(rowCount, colCount))
@@ -23,9 +33,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		clear()
 	}, [clear])
 
-	const rowStyle = { display: 'block', padding: 0, height: cellSize }
-
-	const changeCell = (row: number, col: number) => () => {
+	const changeCell = (row: number, col: number) => {
 		const newField = invertOneCell(field, row, col)
 		setField(newField)
 	}
@@ -37,20 +45,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 	return (
 		<>
-			{field.map((row, i) => (
-				<div key={i} style={rowStyle}>
-					{row.map((value, j) => (
-						<CellStyled
-							key={j}
-							cellSize={cellSize}
-							isAlive={value}
-							data-row={i}
-							data-column={j}
-							onClick={changeCell(i, j)}
-						/>
-					))}
-				</div>
-			))}
+			<GameField field={field} cellSize={cellSize} clickCell={changeCell}/>
 			<button onClick={clear}>Clear</button>
 			<button onClick={playOneStep}>Step</button>
 		</>
