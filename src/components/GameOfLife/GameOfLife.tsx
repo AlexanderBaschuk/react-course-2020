@@ -37,8 +37,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	}, [rowCount, colCount])
 
 	const toggleAutoplay = useCallback(() => {
+		playOneStep()
 		setAutoplay(!autoplay)
-	}, [autoplay, setAutoplay])
+	}, [autoplay, setAutoplay, playOneStep])
 
 	useEffect(() => {
 		clear()
@@ -51,7 +52,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 		const timeout = setTimeout(() => {
 			playOneStep()
-		}, 1000)
+		}, 300)
 		return () => {
 			clearTimeout(timeout)
 		}
