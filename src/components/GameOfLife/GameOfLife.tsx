@@ -25,29 +25,49 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		colCount: 0,
 	})
 
+	const [autoplay, setAutoplay] = useState(false)
+
+	const playOneStep = useCallback(() => {
+		const newField = calculateNextField(field)
+		setField(newField)
+	}, [field])
+
 	const clear = useCallback((): void => {
 		setField(getInitialState(rowCount, colCount))
 	}, [rowCount, colCount])
 
+	const toggleAutoplay = useCallback(() => {
+		setAutoplay(!autoplay)
+	}, [autoplay, setAutoplay])
+
 	useEffect(() => {
 		clear()
 	}, [clear])
+
+	useEffect(() => {
+		if (!autoplay) {
+			return
+		}
+
+		const timeout = setTimeout(() => {
+			playOneStep()
+		}, 1000)
+		return () => {
+			clearTimeout(timeout)
+		}
+	}, [autoplay, playOneStep])
 
 	const changeCell = (row: number, col: number) => {
 		const newField = invertOneCell(field, row, col)
 		setField(newField)
 	}
 
-	const playOneStep = () => {
-		const newField = calculateNextField(field)
-		setField(newField)
-	}
-
 	return (
 		<>
-			<GameField field={field} cellSize={cellSize} clickCell={changeCell}/>
+			<GameField field={field} cellSize={cellSize} clickCell={changeCell} />
 			<button onClick={clear}>Clear</button>
 			<button onClick={playOneStep}>Step</button>
+			<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
 		</>
 	)
 }
