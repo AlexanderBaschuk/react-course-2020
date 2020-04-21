@@ -10,4 +10,5 @@ export const CellStyled = styled.div<CellStyleProps>`
 	width: ${(props) => props.cellSize}px;
 	height: ${(props) => props.cellSize}px;
 	background-color: ${(props) => (props.isAlive ? '#000' : '#EEE')};
+	transition: background-color 200ms;
 `
