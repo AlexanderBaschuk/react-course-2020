@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { getInitialState, invertOneCell, calculateNextField } from './engine'
 import { CellStyled } from './components'
 
@@ -15,9 +15,13 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 }) => {
 	const [field, setField] = useState<boolean[][]>([[]])
 
-	useEffect(() => {
+	const clear = useCallback((): void => {
 		setField(getInitialState(rowCount, colCount))
 	}, [rowCount, colCount])
+
+	useEffect(() => {
+		clear()
+	}, [clear])
 
 	const rowStyle = { display: 'block', padding: 0, height: cellSize }
 
@@ -47,6 +51,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 					))}
 				</div>
 			))}
+			<button onClick={clear}>Clear</button>
 			<button onClick={playOneStep}>Step</button>
 		</>
 	)
