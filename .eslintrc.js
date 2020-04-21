@@ -7,6 +7,7 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'plugin:react/recommended',
+		'plugin:react-hooks/recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
 	],
 	globals: {
@@ -30,7 +31,7 @@ module.exports = {
 			},
 		},
 	],
-	plugins: ['react', '@typescript-eslint'],
+	plugins: ['react', '@typescript-eslint', 'react-hooks'],
 	rules: {
 		'no-restricted-syntax': [
 			'error',
