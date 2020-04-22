@@ -7,12 +7,16 @@ interface IGameFieldProps {
 	field: Field
 	cellSize: number
 	clickCell: (row: number, col: number) => void
+	animate: boolean
+	duration: number
 }
 
 export const GameField: React.FC<IGameFieldProps> = ({
 	field,
 	cellSize,
 	clickCell,
+	animate,
+	duration,
 }) => {
 	const rowStyle = { display: 'block', padding: 0, height: cellSize }
 	return (
@@ -27,6 +31,8 @@ export const GameField: React.FC<IGameFieldProps> = ({
 							data-row={i}
 							data-column={j}
 							onClick={() => clickCell(i, j)}
+							animate={animate}
+							duration={duration}
 						/>
 					))}
 				</div>
