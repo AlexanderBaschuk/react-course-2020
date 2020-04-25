@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
-import { DensityEditor } from './components'
+import { DensityEditor, PlaybackControls } from './components'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -42,10 +42,13 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		[changeCell, setAnimate],
 	)
 
-	const generateField = useCallback((value: number) => {
-		setDensity(value)
-		init()(rowCount, colCount, value)
-	}, [rowCount, colCount, init])
+	const generateField = useCallback(
+		(value: number) => {
+			setDensity(value)
+			init()(rowCount, colCount, value)
+		},
+		[rowCount, colCount, init],
+	)
 
 	useEffect(() => {
 		if (!autoplay) {
@@ -63,10 +66,11 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	return (
 		<>
 			<DensityEditor density={density} setDensity={generateField} />
-			<div>
-				<button onClick={step}>Step</button>
-				<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
-			</div>
+			<PlaybackControls
+				isPlaying={autoplay}
+				step={step}
+				togglePlay={toggleAutoplay}
+			/>
 			<GameField
 				field={field}
 				cellSize={cellSize}
