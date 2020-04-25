@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
+import { DensityEditor } from './components'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -25,8 +26,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	const [autoplay, setAutoplay] = useState(false)
 	const [animate, setAnimate] = useState(false)
 
-	const densityInputRef = useRef<HTMLInputElement>()
-
 	const toggleAutoplay = useCallback(() => {
 		if (!autoplay) {
 			setAnimate(true)
@@ -47,10 +46,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		init()(rowCount, colCount, 0)
 	}, [rowCount, colCount, init])
 
-	const generateField = useCallback(() => {
-		const newDensity = Number(densityInputRef.current.value)
-		setDensity(newDensity)
-		init()(rowCount, colCount, newDensity)
+	const generateField = useCallback((value: number) => {
+		setDensity(value)
+		init()(rowCount, colCount, value)
 	}, [rowCount, colCount, init])
 
 	useEffect(() => {
@@ -66,19 +64,12 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		}
 	}, [autoplay, step])
 
-	useEffect(() => {
-		densityInputRef.current.value = density.toString()
-	}, [density])
-
 	return (
 		<>
 			<div>
 				<button onClick={clearField}>Clear</button>
 			</div>
-			<div>
-				<input type="text" ref={densityInputRef} />
-				<button onClick={generateField}>Reset</button>
-			</div>
+			<DensityEditor density={density} setDensity={generateField} />
 			<div>
 				<button onClick={step}>Step</button>
 				<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>

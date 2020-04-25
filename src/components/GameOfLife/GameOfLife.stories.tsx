@@ -1,7 +1,7 @@
 import { withKnobs, number } from '@storybook/addon-knobs'
 import React from 'react'
 import { GameOfLife } from './GameOfLife'
-import { CellStyled } from './components'
+import { CellStyled, DensityEditor } from './components'
 import { action } from '@storybook/addon-actions'
 import { GameField } from './components/GameField/GameField'
 // eslint-disable-next-line no-unused-vars
@@ -43,6 +43,10 @@ export const GameFieldStory: React.FC = () => {
 			clickCell={action('clickCell')}
 		/>
 	)
+}
+
+export const DensityEditorStory: React.FC = () => {
+	return <DensityEditor density={number('density', 0.4)} setDensity={action('setDensity')}/>
 }
 
 export const CellStory: React.FC = () => (
