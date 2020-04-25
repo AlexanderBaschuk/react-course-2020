@@ -6,14 +6,16 @@ interface GameOfLifeProps {
 	rowCount: number
 	colCount: number
 	cellSize: number
+	initialDensity?: number
 }
 
 export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
 	cellSize,
+	initialDensity = 0.4
 }) => {
-	const [density] = useState(0.4)
+	const [density] = useState(initialDensity)
 	const { field, init, changeCell, step } = useField(rowCount, colCount, density)
 
 	const [autoplay, setAutoplay] = useState(false)
