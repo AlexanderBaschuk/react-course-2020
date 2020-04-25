@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
 
@@ -13,13 +13,19 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
 	cellSize,
-	initialDensity = 0.4
+	initialDensity = 0.4,
 }) => {
-	const [density] = useState(initialDensity)
-	const { field, init, changeCell, step } = useField(rowCount, colCount, density)
+	const [density, setDensity] = useState(initialDensity)
+	const { field, init, changeCell, step } = useField(
+		rowCount,
+		colCount,
+		density,
+	)
 
 	const [autoplay, setAutoplay] = useState(false)
 	const [animate, setAnimate] = useState(false)
+
+	const densityInputRef = useRef<HTMLInputElement>()
 
 	const toggleAutoplay = useCallback(() => {
 		if (!autoplay) {
@@ -42,8 +48,10 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	}, [rowCount, colCount, init])
 
 	const generateField = useCallback(() => {
-		init()(rowCount, colCount, density)
-	}, [rowCount, colCount, density, init])
+		const newDensity = Number(densityInputRef.current.value)
+		setDensity(newDensity)
+		init()(rowCount, colCount, newDensity)
+	}, [rowCount, colCount, init])
 
 	useEffect(() => {
 		if (!autoplay) {
@@ -58,12 +66,23 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		}
 	}, [autoplay, step])
 
+	useEffect(() => {
+		densityInputRef.current.value = density.toString()
+	}, [density])
+
 	return (
 		<>
-			<button onClick={clearField}>Clear</button>
-			<button onClick={generateField}>Reset</button>
-			<button onClick={step}>Step</button>
-			<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
+			<div>
+				<button onClick={clearField}>Clear</button>
+			</div>
+			<div>
+				<input type="text" ref={densityInputRef} />
+				<button onClick={generateField}>Reset</button>
+			</div>
+			<div>
+				<button onClick={step}>Step</button>
+				<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
+			</div>
 			<GameField
 				field={field}
 				cellSize={cellSize}
