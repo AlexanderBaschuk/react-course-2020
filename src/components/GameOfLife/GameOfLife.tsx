@@ -45,9 +45,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	const generateField = useCallback(
 		(value: number) => {
 			setDensity(value)
-			init()(rowCount, colCount, value)
+			init(rowCount, colCount, value)
 		},
-		[rowCount, colCount, init],
+		[rowCount, colCount, setDensity, init],
 	)
 
 	useEffect(() => {
