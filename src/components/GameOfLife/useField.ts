@@ -9,7 +9,7 @@ import {
 
 interface UseFieldreturnType {
 	field: Field
-	clear: () => void
+	init: () => (rowCount: number, colCount: number, density: number) => void
 	changeCell: (row: number, col: number) => void
 	step: () => void
 }
@@ -20,9 +20,12 @@ export const useField = (
 ): UseFieldreturnType => {
 	const [field, setField] = useState<Field>(getInitialState(rowCount, colCount))
 
-	const clear = useCallback(() => {
-		setField(getInitialState(rowCount, colCount))
-	}, [rowCount, colCount, setField])
+	const init = useCallback(
+		() => (rowCount, colCount, density) => {
+			setField(getInitialState(rowCount, colCount, density))
+		},
+		[],
+	)
 
 	const changeCell = (row: number, col: number) => {
 		const newField = invertOneCell(field, row, col)
@@ -36,7 +39,7 @@ export const useField = (
 
 	return {
 		field,
-		clear,
+		init,
 		changeCell,
 		step,
 	}

@@ -11,11 +11,13 @@ export const getInitialState = (
 	colCount: number,
 	density?: number,
 ): Field => {
-	const cells = Array(rowCount).fill(Array(colCount).fill(false))
-	for (let row of cells) {
-		for (let i = 0; i < colCount; i++) {
-			row[i] = getCellValueByDensity(density)
+	const cells = Array(rowCount)
+	for (let r = 0; r < rowCount; r++) {
+		const row = Array(colCount)
+		for (let c = 0; c < colCount; c++) {
+			row[c] = getCellValueByDensity(density)
 		}
+		cells[r] = row
 	}
 
 	return {

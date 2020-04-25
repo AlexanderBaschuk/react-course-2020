@@ -13,8 +13,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	colCount,
 	cellSize,
 }) => {
-	const { field, clear, changeCell, step } = useField(rowCount, colCount)
+	const { field, init, changeCell, step } = useField(rowCount, colCount)
 
+	const [density] = useState(0.4)
 	const [autoplay, setAutoplay] = useState(false)
 	const [animate, setAnimate] = useState(false)
 
@@ -33,6 +34,10 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		},
 		[changeCell, setAnimate],
 	)
+
+	const generateField = useCallback(() => {
+		init()(rowCount, colCount, density)
+	}, [rowCount, colCount, density, init])
 
 	useEffect(() => {
 		if (!autoplay) {
@@ -56,7 +61,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 				animate={animate}
 				duration={500}
 			/>
-			<button onClick={clear}>Clear</button>
+			<button onClick={generateField}>Clear</button>
 			<button onClick={step}>Step</button>
 			<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
 		</>

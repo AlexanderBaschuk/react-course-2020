@@ -11,7 +11,7 @@ describe('getInitialState', () => {
 		expect(actualState.cells).toStrictEqual(expectedCells)
 	})
 
-	test('when density=1 should return all trues', () => {
+	test('when density is 1 should return all trues', () => {
 		const expectedCells = [
 			[true, true, true],
 			[true, true, true],
@@ -21,7 +21,7 @@ describe('getInitialState', () => {
 		expect(actualState.cells).toStrictEqual(expectedCells)
 	})
 
-	test('when density > 0.5 should return more trues than falses', () => {
+	test('when high density should return more trues than falses', () => {
 		const actualState = Engine.getInitialState(100, 100, 0.9)
 		const truesCount = actualState.cells.reduce(
 			(result, row) =>
@@ -36,7 +36,7 @@ describe('getInitialState', () => {
 		expect(truesCount).toBeLessThan(10000)
 	})
 
-	test('when density < 0.5 should return more falses than trues', () => {
+	test('when low density should return more falses than trues', () => {
 		const actualState = Engine.getInitialState(100, 100, 0.1)
 		const truesCount = actualState.cells.reduce(
 			(result, row) =>
