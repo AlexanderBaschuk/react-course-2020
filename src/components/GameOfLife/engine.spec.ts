@@ -1,7 +1,7 @@
 import * as Engine from './engine'
 
 describe('getInitialState', () => {
-	test('when unspecified density should return all false', () => {
+	test('when unspecified density should return all falses', () => {
 		const expectedCells = [
 			[false, false, false],
 			[false, false, false],
@@ -9,6 +9,46 @@ describe('getInitialState', () => {
 		]
 		const actualState = Engine.getInitialState(3, 3)
 		expect(actualState.cells).toStrictEqual(expectedCells)
+	})
+
+	test('when density=1 should return all trues', () => {
+		const expectedCells = [
+			[true, true, true],
+			[true, true, true],
+			[true, true, true],
+		]
+		const actualState = Engine.getInitialState(3, 3, 1)
+		expect(actualState.cells).toStrictEqual(expectedCells)
+	})
+
+	test('when density > 0.5 should return more trues than falses', () => {
+		const actualState = Engine.getInitialState(100, 100, 0.9)
+		const truesCount = actualState.cells.reduce(
+			(result, row) =>
+				result +
+				row.reduce(
+					(rowResult, col) => rowResult + (col === true ? 1 : 0),
+					0,
+				),
+			0,
+		)
+		expect(truesCount).toBeGreaterThan(5000)
+		expect(truesCount).toBeLessThan(10000)
+	})
+
+	test('when density < 0.5 should return more falses than trues', () => {
+		const actualState = Engine.getInitialState(100, 100, 0.1)
+		const truesCount = actualState.cells.reduce(
+			(result, row) =>
+				result +
+				row.reduce(
+					(rowResult, col) => rowResult + (col === true ? 1 : 0),
+					0,
+				),
+			0,
+		)
+		expect(truesCount).toBeLessThan(5000)
+		expect(truesCount).toBeGreaterThan(0)
 	})
 })
 

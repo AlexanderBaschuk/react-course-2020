@@ -1,10 +1,29 @@
 export type Field = { cells: boolean[][]; rowCount: number; colCount: number }
 
-export const getInitialState = (rowCount: number, colCount: number): Field => ({
-	cells: Array(rowCount).fill(Array(colCount).fill(false)),
-	rowCount,
-	colCount,
-})
+function getCellValueByDensity(density?: number): boolean {
+	if (!density) return false
+	if (density === 1) return true
+	return Math.random() > density ? false : true
+}
+
+export const getInitialState = (
+	rowCount: number,
+	colCount: number,
+	density?: number,
+): Field => {
+	const cells = Array(rowCount).fill(Array(colCount).fill(false))
+	for (let row of cells) {
+		for (let i = 0; i < colCount; i++) {
+			row[i] = getCellValueByDensity(density)
+		}
+	}
+
+	return {
+		cells: cells,
+		rowCount,
+		colCount,
+	}
+}
 
 export const invertOneCell = (
 	field: Field,
