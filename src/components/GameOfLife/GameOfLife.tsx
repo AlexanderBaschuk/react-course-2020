@@ -42,10 +42,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		[changeCell, setAnimate],
 	)
 
-	const clearField = useCallback(() => {
-		init()(rowCount, colCount, 0)
-	}, [rowCount, colCount, init])
-
 	const generateField = useCallback((value: number) => {
 		setDensity(value)
 		init()(rowCount, colCount, value)
@@ -66,9 +62,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 	return (
 		<>
-			<div>
-				<button onClick={clearField}>Clear</button>
-			</div>
 			<DensityEditor density={density} setDensity={generateField} />
 			<div>
 				<button onClick={step}>Step</button>

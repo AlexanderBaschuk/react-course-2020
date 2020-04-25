@@ -11,16 +11,27 @@ export const DensityEditor: React.FC<DensityEditorProps> = ({
 }) => {
 	const densityInput = useRef<HTMLInputElement>()
 
-	const changeDensity = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-		const newDensity = Number(densityInput.current.value)
-		setDensity(newDensity)
+	const clearField = useCallback(() => {
+		setDensity(0)
 	}, [setDensity])
+
+	const changeDensity = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault()
+			const newDensity = Number(densityInput.current.value)
+			setDensity(newDensity)
+		},
+		[setDensity],
+	)
 
 	return (
 		<>
 			<div>
+				<button onClick={clearField}>Clear</button>
+			</div>
+			<div>
 				<form onSubmit={changeDensity}>
+					<span>Density: </span>
 					<input type="text" defaultValue={density} ref={densityInput} />
 					<input type="submit" value="Reset" />
 				</form>
