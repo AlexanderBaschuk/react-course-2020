@@ -1,5 +1,17 @@
 import * as Engine from './engine'
 
+describe('getInitialState', () => {
+	test('when unspecified density should return all false', () => {
+		const expectedCells = [
+			[false, false, false],
+			[false, false, false],
+			[false, false, false],
+		]
+		const actualState = Engine.getInitialState(3, 3)
+		expect(actualState.cells).toStrictEqual(expectedCells)
+	})
+})
+
 describe('countNeighbours', () => {
 	test('no neighbours of live cell', () => {
 		const field = {
