@@ -1,27 +1,29 @@
-import React, { useRef, useCallback, useEffect } from 'react'
+import React, { useRef, useCallback } from 'react'
 
 interface DensityEditorProps {
 	density: number
 	setDensity: (value: number) => void
 }
 
-export const DensityEditor: React.FC<DensityEditorProps> = ({ density, setDensity }) => {
+export const DensityEditor: React.FC<DensityEditorProps> = ({
+	density,
+	setDensity,
+}) => {
 	const densityInput = useRef<HTMLInputElement>()
 
-	const changeDensity = useCallback(() => {
+	const changeDensity = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		const newDensity = Number(densityInput.current.value)
 		setDensity(newDensity)
 	}, [setDensity])
 
-	useEffect(() => {
-		densityInput.current.value = density.toString()
-	}, [density])
-
 	return (
 		<>
 			<div>
-				<input type="text" ref={densityInput} />
-				<button onClick={changeDensity}>Reset</button>
+				<form onSubmit={changeDensity}>
+					<input type="text" defaultValue={density} ref={densityInput} />
+					<input type="submit" value="Reset" />
+				</form>
 			</div>
 		</>
 	)
