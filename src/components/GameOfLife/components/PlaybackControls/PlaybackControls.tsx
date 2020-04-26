@@ -15,9 +15,24 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
 }) => {
 	const speedInput = useRef<HTMLInputElement>()
 
-	const changeSpeed = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-		const newSpeed = Number(speedInput.current.value)
+	const changeSpeed = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault()
+			const newSpeed = Number(speedInput.current.value)
+			setSpeed(newSpeed)
+		},
+		[setSpeed],
+	)
+
+	const increaseSpeed = useCallback(() => {
+		const newSpeed = Number(speedInput.current.value) + 1
+		speedInput.current.value = newSpeed.toString()
+		setSpeed(newSpeed)
+	}, [setSpeed])
+
+	const decreaseSpeed = useCallback(() => {
+		const newSpeed = Number(speedInput.current.value) - 1
+		speedInput.current.value = newSpeed.toString()
 		setSpeed(newSpeed)
 	}, [setSpeed])
 
@@ -31,6 +46,8 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
 				<form onSubmit={changeSpeed}>
 					<input type="text" title="Speed" defaultValue={10} ref={speedInput} />
 					<input type="submit" value="Set speed" />
+					<button onClick={decreaseSpeed}>-</button>
+					<button onClick={increaseSpeed}>+</button>
 				</form>
 			</div>
 		</>
