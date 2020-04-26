@@ -23,6 +23,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	)
 
 	const [autoplay, setAutoplay] = useState(false)
+	const [speed, setSpeed] = useState(100)
 	const [animate, setAnimate] = useState(false)
 
 	const toggleAutoplay = useCallback(() => {
@@ -32,6 +33,15 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		}
 		setAutoplay(!autoplay)
 	}, [autoplay, setAutoplay, step])
+
+	const changeSpeed = useCallback(
+		(value: number) => {
+			console.log(`Changing speed to ${value}`)
+			if (value <= 0) return
+			setSpeed(1000 / value)
+		},
+		[setSpeed],
+	)
 
 	const invertCell = useCallback(
 		(row: number, col: number) => {
@@ -48,11 +58,11 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 		const timeout = setTimeout(() => {
 			step()
-		}, 100)
+		}, speed)
 		return () => {
 			clearTimeout(timeout)
 		}
-	}, [autoplay, step])
+	}, [autoplay, step, speed])
 
 	return (
 		<>
@@ -67,6 +77,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 				isPlaying={autoplay}
 				step={step}
 				togglePlay={toggleAutoplay}
+				setSpeed={changeSpeed}
 			/>
 			<GameField
 				field={field}

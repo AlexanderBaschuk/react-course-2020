@@ -63,6 +63,7 @@ export const PlaybackControlsStory: React.FC = () => {
 			isPlaying={boolean('isPlaying', false)}
 			step={action('step')}
 			togglePlay={action('togglePlay')}
+			setSpeed={action('setSpeed')}
 		/>
 	)
 }
