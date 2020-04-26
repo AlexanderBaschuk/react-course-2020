@@ -41,20 +41,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		[changeCell, setAnimate],
 	)
 
-	const changeSize = useCallback(
-		(rows: number, columns: number) => {
-			resize(rows, columns)
-		},
-		[resize],
-	)
-
-	const generateField = useCallback(
-		(density: number) => {
-			reset(density)
-		},
-		[reset],
-	)
-
 	useEffect(() => {
 		if (!autoplay) {
 			return
@@ -73,9 +59,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 			<FieldControls
 				rowCount={rowCount}
 				colCount={colCount}
-				setSize={changeSize}
+				setSize={resize}
 				density={density}
-				setDensity={generateField}
+				setDensity={reset}
 			/>
 			<PlaybackControls
 				isPlaying={autoplay}

@@ -19,10 +19,10 @@ interface UseFieldreturnType {
 export const useField = (
 	rowCount: number,
 	colCount: number,
-	initialDensity: number,
+	density: number,
 ): UseFieldreturnType => {
 	const [field, setField] = useState<Field>(
-		getInitialState(rowCount, colCount, initialDensity),
+		getInitialState(rowCount, colCount, density),
 	)
 
 	const reset = useCallback(
