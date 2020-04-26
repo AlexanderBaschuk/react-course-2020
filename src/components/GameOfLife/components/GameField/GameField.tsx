@@ -2,6 +2,7 @@ import React from 'react'
 import { CellStyled } from '.'
 // eslint-disable-next-line no-unused-vars
 import { Field } from '../../engine'
+import { RowStyled } from './Gamefield.styles'
 
 interface IGameFieldProps {
 	field: Field
@@ -18,11 +19,10 @@ export const GameField: React.FC<IGameFieldProps> = ({
 	animate,
 	duration,
 }) => {
-	const rowStyle = { display: 'block', padding: 0, height: cellSize }
 	return (
 		<>
 			{field.cells.map((row, i) => (
-				<div key={i} style={rowStyle}>
+				<RowStyled key={i} height={cellSize}>
 					{row.map((value, j) => (
 						<CellStyled
 							key={j}
@@ -35,7 +35,7 @@ export const GameField: React.FC<IGameFieldProps> = ({
 							duration={duration}
 						/>
 					))}
-				</div>
+				</RowStyled>
 			))}
 		</>
 	)
