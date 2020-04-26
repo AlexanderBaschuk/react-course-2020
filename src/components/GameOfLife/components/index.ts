@@ -1,3 +1,3 @@
 export * from './GameField'
-export * from './DensityEditor'
+export * from './FieldControls'
 export * from './PlaybackControls'
