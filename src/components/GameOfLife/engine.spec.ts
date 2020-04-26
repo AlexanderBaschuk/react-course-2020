@@ -52,6 +52,55 @@ describe('getInitialState', () => {
 	})
 })
 
+describe('resize field', () => {
+	test('add row', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, false],
+				[true, false, true],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false, true],
+				[false, true, false],
+				[true, false, true],
+				[false, false, false],
+			],
+			rowCount: 4,
+			colCount: 3,
+		}
+		const actualField = Engine.resize(initialField, 4, 3)
+		expect(actualField).toStrictEqual(expectedField)
+	})
+
+	test('add column', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, false],
+				[true, false, true],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false, true, false],
+				[false, true, false, false],
+				[true, false, true, false],
+			],
+			rowCount: 3,
+			colCount: 4,
+		}
+		const actualField = Engine.resize(initialField, 3, 4)
+		expect(actualField).toStrictEqual(expectedField)
+	})
+})
+
 describe('countNeighbours', () => {
 	test('no neighbours of live cell', () => {
 		const field = {

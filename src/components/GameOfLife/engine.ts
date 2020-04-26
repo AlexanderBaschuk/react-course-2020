@@ -27,9 +27,30 @@ export const getInitialState = (
 	}
 }
 
-export const resize = (field: Field, rowCount: number, colCount: number): Field => {
+export const resize = (
+	field: Field,
+	rowCount: number,
+	colCount: number,
+): Field => {
 	console.log(`resizing to ${rowCount} x ${colCount}.`)
-	return field
+	let resultCells = Array(rowCount)
+	for (let r = 0; r < rowCount; r++) {
+		const row = Array(colCount)
+		if (r >= field.rowCount) {
+			resultCells[r] = row.fill(false)
+			continue
+		}
+
+		for (let c = 0; c < colCount; c++) {
+			row[c] = c >= field.colCount ? false : field.cells[r][c]
+		}
+		resultCells[r] = row
+	}
+	return {
+		rowCount: rowCount,
+		colCount: colCount,
+		cells: resultCells,
+	}
 }
 
 export const invertOneCell = (
