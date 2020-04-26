@@ -99,6 +99,98 @@ describe('resize field', () => {
 		const actualField = Engine.resize(initialField, 3, 4)
 		expect(actualField).toStrictEqual(expectedField)
 	})
+
+	test('remove row', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, true],
+				[true, true, false],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false, true],
+				[false, true, true],
+			],
+			rowCount: 2,
+			colCount: 3,
+		}
+		const actualField = Engine.resize(initialField, 2, 3)
+		expect(actualField).toStrictEqual(expectedField)
+	})
+
+	test('remove column', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, true],
+				[true, true, false],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false],
+				[false, true],
+				[true, true],
+			],
+			rowCount: 3,
+			colCount: 2,
+		}
+		const actualField = Engine.resize(initialField, 3, 2)
+		expect(actualField).toStrictEqual(expectedField)
+	})
+
+	test('add rows and columns', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, true],
+				[true, true, false],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false, true, false, false],
+				[false, true, true, false, false],
+				[true, true, false, false, false],
+				[false, false, false, false, false],
+				[false, false, false, false, false],
+				[false, false, false, false, false],
+			],
+			rowCount: 6,
+			colCount: 5,
+		}
+		const actualField = Engine.resize(initialField, 6, 5)
+		expect(actualField).toStrictEqual(expectedField)
+	})
+	
+	test('remove rows and columns', () => {
+		const initialField = {
+			cells: [
+				[true, false, true],
+				[false, true, true],
+				[true, true, false],
+			],
+			rowCount: 3,
+			colCount: 3,
+		}
+		const expectedField = {
+			cells: [
+				[true, false],
+			],
+			rowCount: 1,
+			colCount: 2,
+		}
+		const actualField = Engine.resize(initialField, 1, 2)
+		expect(actualField).toStrictEqual(expectedField)
+	})
 })
 
 describe('countNeighbours', () => {
