@@ -27,6 +27,11 @@ export const getInitialState = (
 	}
 }
 
+export const resize = (field: Field, rowCount: number, colCount: number): Field => {
+	console.log(`resizing to ${rowCount} x ${colCount}.`)
+	return field
+}
+
 export const invertOneCell = (
 	field: Field,
 	row: number,

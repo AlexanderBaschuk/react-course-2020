@@ -1,7 +1,7 @@
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 import React from 'react'
 import { GameOfLife } from './GameOfLife'
-import { CellStyled, DensityEditor, PlaybackControls } from './components'
+import { CellStyled, FieldControls, PlaybackControls } from './components'
 import { action } from '@storybook/addon-actions'
 import { GameField } from './components/GameField/GameField'
 // eslint-disable-next-line no-unused-vars
@@ -45,9 +45,12 @@ export const GameFieldStory: React.FC = () => {
 	)
 }
 
-export const DensityEditorStory: React.FC = () => {
+export const FieldControlsStory: React.FC = () => {
 	return (
-		<DensityEditor
+		<FieldControls
+			rowCount={number('rowCount', 10)}
+			colCount={number('colCount', 10)}
+			setSize={action('setSize')}
 			density={number('density', 0.4)}
 			setDensity={action('setDensity')}
 		/>
