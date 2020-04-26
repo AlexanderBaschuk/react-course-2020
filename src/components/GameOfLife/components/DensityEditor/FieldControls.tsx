@@ -59,7 +59,7 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 				<form onSubmit={changeDensity}>
 					<span>Density: </span>
 					<input type="text" defaultValue={density} ref={densityInput} />
-					<input type="submit" value="Reset" />
+					<input type="submit" value="Generate" />
 				</form>
 			</div>
 		</>
