@@ -2,7 +2,7 @@ import React from 'react'
 import { CellStyled } from '.'
 // eslint-disable-next-line no-unused-vars
 import { Field } from '../../engine'
-import { RowStyled } from './Gamefield.styles'
+import { RowStyled } from './GameField.styles'
 
 interface IGameFieldProps {
 	field: Field
