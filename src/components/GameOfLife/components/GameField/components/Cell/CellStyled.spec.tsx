@@ -9,7 +9,7 @@ test.each`
 	${20}    | ${false}
 `('Cell snapshot test', ({ cellSize, isAlive }) => {
 	const cell = renderer
-		.create(<CellStyled cellSize={cellSize} isAlive={isAlive} />)
+		.create(<CellStyled cellSize={cellSize} isAlive={isAlive} animate={false} duration={0}/>)
 		.toJSON()
 	expect(cell).toMatchSnapshot()
 })

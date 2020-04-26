@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { getInitialState, invertOneCell, calculateNextField } from './engine'
-import { CellStyled } from './components'
+import React, { useState, useEffect, useCallback } from 'react'
+import { GameField } from './components/GameField/GameField'
+import { useField } from './useField'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -13,41 +13,52 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	colCount,
 	cellSize,
 }) => {
-	const [field, setField] = useState<boolean[][]>([[]])
+	const { field, clear, changeCell, step } = useField(rowCount, colCount)
+
+	const [autoplay, setAutoplay] = useState(false)
+	const [animate, setAnimate] = useState(false)
+
+	const toggleAutoplay = useCallback(() => {
+		if (!autoplay) {
+			setAnimate(true)
+			step()
+		}
+		setAutoplay(!autoplay)
+	}, [autoplay, setAutoplay, step])
+
+	const invertCell = useCallback(
+		(row: number, col: number) => {
+			setAnimate(false)
+			changeCell(row, col)
+		},
+		[changeCell, setAnimate],
+	)
 
 	useEffect(() => {
-		setField(getInitialState(rowCount, colCount))
-	}, [rowCount, colCount])
+		if (!autoplay) {
+			return
+		}
 
-	const rowStyle = { display: 'block', padding: 0, height: cellSize }
-
-	const changeCell = (row: number, col: number) => () => {
-		const newField = invertOneCell(field, row, col)
-		setField(newField)
-	}
-
-	const playOneStep = () => {
-		const newField = calculateNextField(field)
-		setField(newField)
-	}
+		const timeout = setTimeout(() => {
+			step()
+		}, 300)
+		return () => {
+			clearTimeout(timeout)
+		}
+	}, [autoplay, step])
 
 	return (
 		<>
-			{field.map((row, i) => (
-				<div key={i} style={rowStyle}>
-					{row.map((value, j) => (
-						<CellStyled
-							key={j}
-							cellSize={cellSize}
-							isAlive={value}
-							data-row={i}
-							data-column={j}
-							onClick={changeCell(i, j)}
-						/>
-					))}
-				</div>
-			))}
-			<button onClick={playOneStep}>Step</button>
+			<GameField
+				field={field}
+				cellSize={cellSize}
+				clickCell={invertCell}
+				animate={animate}
+				duration={500}
+			/>
+			<button onClick={clear}>Clear</button>
+			<button onClick={step}>Step</button>
+			<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
 		</>
 	)
 }

@@ -3,6 +3,8 @@ import styled from '@emotion/styled'
 interface CellStyleProps {
 	cellSize: number
 	isAlive: boolean
+	animate: boolean
+	duration: number
 }
 
 export const CellStyled = styled.div<CellStyleProps>`
@@ -10,4 +12,5 @@ export const CellStyled = styled.div<CellStyleProps>`
 	width: ${(props) => props.cellSize}px;
 	height: ${(props) => props.cellSize}px;
 	background-color: ${(props) => (props.isAlive ? '#000' : '#EEE')};
+	${(props) => (props.animate && `transition: background-color ${props.duration}ms`)};
 `
