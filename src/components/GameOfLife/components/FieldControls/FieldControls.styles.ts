@@ -9,7 +9,7 @@ export const FieldControlsAreaStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: 0 20px 10px 0;
+	padding: 0 20px 20px 0;
 	height: 50px;
 `
 

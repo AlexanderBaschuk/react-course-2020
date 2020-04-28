@@ -1,6 +1,6 @@
+import { PlaybackControls } from '.'
 import React from 'react'
 import { mount } from 'enzyme'
-import { PlaybackControls } from '.'
 
 describe('Playback controls', () => {
 	it('should call step when pressing the Step button', () => {
@@ -14,7 +14,7 @@ describe('Playback controls', () => {
 				setSpeed={jest.fn()}
 			/>,
 		)
-		const stepButton = el.find('button').at(0)
+		const stepButton = el.find('button[data-testid="step-button"]')
 		stepButton.simulate('click')
 		expect(setpMock).toHaveBeenCalled()
 	})
@@ -30,7 +30,7 @@ describe('Playback controls', () => {
 				setSpeed={jest.fn()}
 			/>,
 		)
-		const stepButton = el.find('button').at(1)
+		const stepButton = el.find('button[data-testid="start-stop-button"]')
 		stepButton.simulate('click')
 		expect(playMock).toHaveBeenCalled()
 	})

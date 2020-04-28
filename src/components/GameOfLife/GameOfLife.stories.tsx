@@ -1,11 +1,13 @@
-import { withKnobs, number, boolean } from '@storybook/addon-knobs'
-import React from 'react'
-import { GameOfLife } from './GameOfLife'
+/* eslint-disable no-unused-vars */
+
 import { CellStyled, FieldControls, PlaybackControls } from './components'
-import { action } from '@storybook/addon-actions'
-import { GameField } from './components/GameField/GameField'
-// eslint-disable-next-line no-unused-vars
+import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+
 import { Field } from './engine'
+import { GameField } from './components/GameField/GameField'
+import { GameOfLife } from './GameOfLife'
+import React from 'react'
+import { action } from '@storybook/addon-actions'
 
 export default {
 	title: 'Game of Life',
@@ -15,9 +17,9 @@ export default {
 export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife
-			rowCount={number('rowCount', 5)}
-			colCount={number('colCount', 5)}
-			cellSize={number('cellsize', 20)}
+			rowCount={number('rowCount', 10)}
+			colCount={number('colCount', 10)}
+			cellSize={number('cellSize', 20)}
 		/>
 	)
 }

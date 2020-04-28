@@ -1,5 +1,9 @@
 import styled from '@emotion/styled'
 
+export const GameFieldStyled = styled.div`
+	padding: 10px 0;
+`
+
 interface RowStyleProps {
 	height: number
 }

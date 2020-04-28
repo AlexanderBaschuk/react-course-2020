@@ -1,4 +1,11 @@
-import React, { useRef, useCallback } from 'react'
+import {
+	ControlWrapperStyled,
+	InputLabelStyled,
+	InputStyled,
+	PlaybackControlsAreaStyled,
+	PlaybackControlsWrapperStyled,
+} from './PlaybackControls.styles'
+import React, { useCallback, useRef } from 'react'
 
 interface PlaybackControlsProps {
 	isPlaying: boolean
@@ -37,19 +44,34 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
 	}, [setSpeed])
 
 	return (
-		<>
-			<div>
-				<button onClick={step}>Step</button>
-				<button onClick={togglePlay}>{isPlaying ? 'Stop' : 'Start'}</button>
-			</div>
-			<div>
+		<PlaybackControlsWrapperStyled>
+			<PlaybackControlsAreaStyled>
+				<ControlWrapperStyled>
+					<button data-testid="start-stop-button" onClick={togglePlay}>
+						{isPlaying ? 'Stop' : 'Start'}
+					</button>
+				</ControlWrapperStyled>
+				<ControlWrapperStyled>
+					<button data-testid="step-button" onClick={step}>
+						1 Step
+					</button>
+				</ControlWrapperStyled>
+			</PlaybackControlsAreaStyled>
+			<PlaybackControlsAreaStyled>
 				<form onSubmit={changeSpeed}>
-					<input type="text" title="Speed" defaultValue={10} ref={speedInput} />
-					<input type="submit" value="Set speed" />
-					<button onClick={decreaseSpeed}>-</button>
-					<button onClick={increaseSpeed}>+</button>
+					<ControlWrapperStyled>
+						<InputLabelStyled>Speed:</InputLabelStyled>
+						<InputStyled type="text" defaultValue={10} ref={speedInput} />
+					</ControlWrapperStyled>
+					<ControlWrapperStyled>
+						<input type="submit" value="Set" />
+					</ControlWrapperStyled>
+					<ControlWrapperStyled>
+						<button onClick={decreaseSpeed}>-</button>
+						<button onClick={increaseSpeed}>+</button>
+					</ControlWrapperStyled>
 				</form>
-			</div>
-		</>
+			</PlaybackControlsAreaStyled>
+		</PlaybackControlsWrapperStyled>
 	)
 }
