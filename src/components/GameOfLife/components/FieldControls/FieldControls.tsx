@@ -1,4 +1,5 @@
-import React, { useRef, useCallback } from 'react'
+import { ClearButton, ControlsPanelStyled, FieldControlsAreaStyled, FieldControlsWrapperStyled, InputLabel, InputStyled } from './FieldControls.styles'
+import React, { useCallback, useRef } from 'react'
 
 interface FieldControlsProps {
 	rowCount: number
@@ -43,25 +44,37 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 	)
 
 	return (
-		<>
-			<div>
-				<button onClick={clearField}>Clear</button>
-			</div>
-			<div>
-				<form onSubmit={changeSize}>
-					<span>Field size: </span>
-					<input type="text" title="Rows" defaultValue={rowCount} ref={rowsInput} />
-					<input type="text" title="Columns" defaultValue={colCount} ref={columnsInput} />
-					<input type="submit" value="Set size" />
-				</form>
-			</div>
-			<div>
-				<form onSubmit={changeDensity}>
-					<span>Density: </span>
-					<input type="text" defaultValue={density} ref={densityInput} />
-					<input type="submit" value="Generate" />
-				</form>
-			</div>
-		</>
+		<FieldControlsWrapperStyled>
+			<FieldControlsAreaStyled>
+				<ClearButton onClick={clearField}>Clear</ClearButton>
+			</FieldControlsAreaStyled>
+			<FieldControlsAreaStyled>
+				<ControlsPanelStyled>
+					<form onSubmit={changeSize}>
+						<InputLabel>Field size: </InputLabel>
+						<InputStyled
+							type="text"
+							title="Rows"
+							defaultValue={rowCount}
+							ref={rowsInput}
+						/>
+						<InputStyled
+							type="text"
+							title="Columns"
+							defaultValue={colCount}
+							ref={columnsInput}
+						/>
+						<input type="submit" value="Set size" />
+					</form>
+				</ControlsPanelStyled>
+				<ControlsPanelStyled>
+					<form onSubmit={changeDensity}>
+						<InputLabel>Density: </InputLabel>
+						<InputStyled type="text" defaultValue={density} ref={densityInput} />
+						<input type="submit" value="Generate" />
+					</form>
+				</ControlsPanelStyled>
+			</FieldControlsAreaStyled>
+		</FieldControlsWrapperStyled>
 	)
 }
