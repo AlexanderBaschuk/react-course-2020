@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-unused-vars
+import { isBinary, isUnary, mathOperators } from './mathOperators'
+import { isNumber, isOperator } from './helpers'
+
 import { ParsedLineType } from './parser'
-import { isOperator, isNumber } from './helpers'
-import { mathOperators, isBinary, isUnary } from './mathOperators'
 
 function applyUnaryOperator(
 	stack: ParsedLineType,

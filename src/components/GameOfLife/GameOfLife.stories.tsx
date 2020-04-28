@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { CellStyled, FieldControls, PlaybackControls } from './components'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 

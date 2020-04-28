@@ -1,12 +1,11 @@
-import { useState, useCallback } from 'react'
 import {
-	// eslint-disable-next-line no-unused-vars
 	Field,
-	getInitialState,
 	calculateNextField,
+	getInitialState,
 	invertOneCell,
 	resize as resizeField,
 } from './engine'
+import { useCallback, useState } from 'react'
 
 interface UseFieldreturnType {
 	field: Field

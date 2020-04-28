@@ -4,10 +4,6 @@ import { CellStyled } from '.'
 import { Field } from '../../engine'
 import React from 'react'
 
-// eslint-disable-next-line no-unused-vars
-
-
-
 interface IGameFieldProps {
 	field: Field
 	cellSize: number
