@@ -1,9 +1,7 @@
 export type BinaryOperation = (first: number, second: number) => number
 export type UnaryOperation = (value: number) => number
 export enum OperationType {
-	// eslint-disable-next-line no-unused-vars
 	Binary,
-	// eslint-disable-next-line no-unused-vars
 	Unary,
 }
 interface BinaryOperator {

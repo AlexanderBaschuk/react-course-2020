@@ -1,10 +1,51 @@
 export type Field = { cells: boolean[][]; rowCount: number; colCount: number }
 
-export const getInitialState = (rowCount: number, colCount: number): Field => ({
-	cells: Array(rowCount).fill(Array(colCount).fill(false)),
-	rowCount,
-	colCount,
-})
+function getCellValueByDensity(density?: number): boolean {
+	if (!density) return false
+	if (density === 1) return true
+	return Math.random() > density ? false : true
+}
+
+export const getInitialState = (
+	rowCount: number,
+	colCount: number,
+	density?: number,
+): Field => {
+	const cells = Array.from(Array(rowCount), () =>
+		Array.from(Array(colCount), () => getCellValueByDensity(density)),
+	)
+
+	return {
+		cells,
+		rowCount,
+		colCount,
+	}
+}
+
+export const resize = (
+	field: Field,
+	rowCount: number,
+	colCount: number,
+): Field => {
+	let resultCells = Array(rowCount)
+	for (let r = 0; r < rowCount; r++) {
+		const row = Array(colCount)
+		if (r >= field.rowCount) {
+			resultCells[r] = row.fill(false)
+			continue
+		}
+
+		for (let c = 0; c < colCount; c++) {
+			row[c] = c >= field.colCount ? false : field.cells[r][c]
+		}
+		resultCells[r] = row
+	}
+	return {
+		rowCount,
+		colCount,
+		cells: resultCells,
+	}
+}
 
 export const invertOneCell = (
 	field: Field,

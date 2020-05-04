@@ -1,15 +1,16 @@
-import { useState, useCallback } from 'react'
 import {
-	// eslint-disable-next-line no-unused-vars
 	Field,
-	getInitialState,
 	calculateNextField,
+	getInitialState,
 	invertOneCell,
+	resize as resizeField,
 } from './engine'
+import { useCallback, useState } from 'react'
 
 interface UseFieldreturnType {
 	field: Field
-	clear: () => void
+	reset: (density: number) => void
+	resize: (rowCount: number, colCount: number) => void
 	changeCell: (row: number, col: number) => void
 	step: () => void
 }
@@ -17,12 +18,25 @@ interface UseFieldreturnType {
 export const useField = (
 	rowCount: number,
 	colCount: number,
+	density: number,
 ): UseFieldreturnType => {
-	const [field, setField] = useState<Field>(getInitialState(rowCount, colCount))
+	const [field, setField] = useState<Field>(
+		getInitialState(rowCount, colCount, density),
+	)
 
-	const clear = useCallback(() => {
-		setField(getInitialState(rowCount, colCount))
-	}, [rowCount, colCount, setField])
+	const reset = useCallback(
+		(density) => {
+			setField(getInitialState(field.rowCount, field.colCount, density))
+		},
+		[field, setField],
+	)
+
+	const resize = useCallback(
+		(rowCount: number, colCount: number) => {
+			setField(resizeField(field, rowCount, colCount))
+		},
+		[setField, field],
+	)
 
 	const changeCell = (row: number, col: number) => {
 		const newField = invertOneCell(field, row, col)
@@ -36,7 +50,8 @@ export const useField = (
 
 	return {
 		field,
-		clear,
+		reset,
+		resize,
 		changeCell,
 		step,
 	}

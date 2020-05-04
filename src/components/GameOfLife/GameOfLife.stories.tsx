@@ -1,11 +1,11 @@
-import { withKnobs, number } from '@storybook/addon-knobs'
-import React from 'react'
-import { GameOfLife } from './GameOfLife'
-import { CellStyled } from './components'
-import { action } from '@storybook/addon-actions'
-import { GameField } from './components/GameField/GameField'
-// eslint-disable-next-line no-unused-vars
+import { CellStyled, FieldControls, PlaybackControls } from './components'
+import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+
 import { Field } from './engine'
+import { GameField } from './components/GameField/GameField'
+import { GameOfLife } from './GameOfLife'
+import React from 'react'
+import { action } from '@storybook/addon-actions'
 
 export default {
 	title: 'Game of Life',
@@ -15,9 +15,9 @@ export default {
 export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife
-			rowCount={number('rowCount', 5)}
-			colCount={number('colCount', 5)}
-			cellSize={number('cellsize', 20)}
+			rowCount={number('rowCount', 10)}
+			colCount={number('colCount', 10)}
+			cellSize={number('cellSize', 20)}
 		/>
 	)
 }
@@ -41,6 +41,29 @@ export const GameFieldStory: React.FC = () => {
 			animate={false}
 			duration={100}
 			clickCell={action('clickCell')}
+		/>
+	)
+}
+
+export const FieldControlsStory: React.FC = () => {
+	return (
+		<FieldControls
+			rowCount={number('rowCount', 10)}
+			colCount={number('colCount', 10)}
+			setSize={action('setSize')}
+			density={number('density', 0.4)}
+			setDensity={action('setDensity')}
+		/>
+	)
+}
+
+export const PlaybackControlsStory: React.FC = () => {
+	return (
+		<PlaybackControls
+			isPlaying={boolean('isPlaying', false)}
+			step={action('step')}
+			togglePlay={action('togglePlay')}
+			setSpeed={action('setSpeed')}
 		/>
 	)
 }

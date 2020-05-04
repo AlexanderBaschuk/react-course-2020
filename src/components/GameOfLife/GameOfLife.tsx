@@ -1,21 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
+import { FieldControls, PlaybackControls } from './components'
 
 interface GameOfLifeProps {
 	rowCount: number
 	colCount: number
 	cellSize: number
+	density?: number
 }
 
 export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
 	cellSize,
+	density = 0.4,
 }) => {
-	const { field, clear, changeCell, step } = useField(rowCount, colCount)
+	const { field, reset, resize, changeCell, step } = useField(
+		rowCount,
+		colCount,
+		density,
+	)
 
 	const [autoplay, setAutoplay] = useState(false)
+	const [speed, setSpeed] = useState(100)
 	const [animate, setAnimate] = useState(false)
 
 	const toggleAutoplay = useCallback(() => {
@@ -25,6 +33,15 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		}
 		setAutoplay(!autoplay)
 	}, [autoplay, setAutoplay, step])
+
+	const changeSpeed = useCallback(
+		(value: number) => {
+			console.log(`Changing speed to ${value}`)
+			if (value <= 0) return
+			setSpeed(1000 / value)
+		},
+		[setSpeed],
+	)
 
 	const invertCell = useCallback(
 		(row: number, col: number) => {
@@ -41,24 +58,34 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 		const timeout = setTimeout(() => {
 			step()
-		}, 300)
+		}, speed)
 		return () => {
 			clearTimeout(timeout)
 		}
-	}, [autoplay, step])
+	}, [autoplay, step, speed])
 
 	return (
 		<>
+			<FieldControls
+				rowCount={rowCount}
+				colCount={colCount}
+				setSize={resize}
+				density={density}
+				setDensity={reset}
+			/>
+			<PlaybackControls
+				isPlaying={autoplay}
+				step={step}
+				togglePlay={toggleAutoplay}
+				setSpeed={changeSpeed}
+			/>
 			<GameField
 				field={field}
 				cellSize={cellSize}
 				clickCell={invertCell}
 				animate={animate}
-				duration={500}
+				duration={150}
 			/>
-			<button onClick={clear}>Clear</button>
-			<button onClick={step}>Step</button>
-			<button onClick={toggleAutoplay}>{autoplay ? 'Stop' : 'Start'}</button>
 		</>
 	)
 }

@@ -41,6 +41,8 @@ module.exports = {
 			},
 		],
 		'react/prop-types': 0,
+		'no-unused-vars': 'off',
+		'object-shorthand': 1,
 	},
 	settings: {
 		react: {
