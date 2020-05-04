@@ -7,7 +7,7 @@ import {
 } from './engine'
 import { useCallback, useState } from 'react'
 
-interface UseFieldreturnType {
+interface UseFieldReturnType {
 	field: Field
 	reset: (density: number) => void
 	resize: (rowCount: number, colCount: number) => void
@@ -19,7 +19,7 @@ export const useField = (
 	rowCount: number,
 	colCount: number,
 	density: number,
-): UseFieldreturnType => {
+): UseFieldReturnType => {
 	const [field, setField] = useState<Field>(
 		getInitialState(rowCount, colCount, density),
 	)
@@ -28,25 +28,28 @@ export const useField = (
 		(density) => {
 			setField(getInitialState(field.rowCount, field.colCount, density))
 		},
-		[field, setField],
+		[field],
 	)
 
 	const resize = useCallback(
 		(rowCount: number, colCount: number) => {
 			setField(resizeField(field, rowCount, colCount))
 		},
-		[setField, field],
+		[field],
 	)
 
-	const changeCell = (row: number, col: number) => {
-		const newField = invertOneCell(field, row, col)
-		setField(newField)
-	}
+	const changeCell = useCallback(
+		(row: number, col: number) => {
+			const newField = invertOneCell(field, row, col)
+			setField(newField)
+		},
+		[field],
+	)
 
 	const step = useCallback((): void => {
 		const newField = calculateNextField(field)
 		setField(newField)
-	}, [field, setField])
+	}, [field])
 
 	return {
 		field,
