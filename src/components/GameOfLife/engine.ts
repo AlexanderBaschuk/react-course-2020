@@ -11,17 +11,12 @@ export const getInitialState = (
 	colCount: number,
 	density?: number,
 ): Field => {
-	const cells = Array(rowCount)
-	for (let r = 0; r < rowCount; r++) {
-		const row = Array(colCount)
-		for (let c = 0; c < colCount; c++) {
-			row[c] = getCellValueByDensity(density)
-		}
-		cells[r] = row
-	}
+	const cells = Array.from(Array(rowCount), () =>
+		Array.from(Array(colCount), () => getCellValueByDensity(density)),
+	)
 
 	return {
-		cells: cells,
+		cells,
 		rowCount,
 		colCount,
 	}
@@ -32,7 +27,6 @@ export const resize = (
 	rowCount: number,
 	colCount: number,
 ): Field => {
-	console.log(`resizing to ${rowCount} x ${colCount}.`)
 	let resultCells = Array(rowCount)
 	for (let r = 0; r < rowCount; r++) {
 		const row = Array(colCount)
@@ -47,8 +41,8 @@ export const resize = (
 		resultCells[r] = row
 	}
 	return {
-		rowCount: rowCount,
-		colCount: colCount,
+		rowCount,
+		colCount,
 		cells: resultCells,
 	}
 }
