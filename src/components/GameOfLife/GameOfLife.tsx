@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { FieldControls, PlaybackControls } from './components'
+import React, { useCallback, useEffect, useState } from 'react'
+
 import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
-import { FieldControls, PlaybackControls } from './components'
 
 interface GameOfLifeProps {
 	rowCount: number
@@ -40,7 +41,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 			if (value <= 0) return
 			setSpeed(1000 / value)
 		},
-		[setSpeed],
+		[],
 	)
 
 	const invertCell = useCallback(
@@ -48,7 +49,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 			setAnimate(false)
 			changeCell(row, col)
 		},
-		[changeCell, setAnimate],
+		[changeCell],
 	)
 
 	useEffect(() => {
