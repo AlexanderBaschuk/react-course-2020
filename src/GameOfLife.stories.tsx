@@ -1,15 +1,20 @@
-import { CellStyled, FieldControls, PlaybackControls } from './components'
+import { CellStyled, FieldControls, PlaybackControls } from './components/GameOfLife/components'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 
-import { Field } from './engine'
-import { GameField } from './components/GameField/GameField'
-import { GameOfLife } from './GameOfLife'
+import { Field } from './components/GameOfLife/engine'
+import { GameField } from './components/GameOfLife/components/GameField/GameField'
+import { GameOfLife } from './components/GameOfLife/GameOfLife'
+import { LoginForm } from './components/LoginForm/LoginForm'
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 
 export default {
 	title: 'Game of Life',
 	decorators: [withKnobs],
+}
+
+export const LoginFormStory: React.FC = () => {
+	return <LoginForm />
 }
 
 export const GameOfLifeStory: React.FC = () => {
