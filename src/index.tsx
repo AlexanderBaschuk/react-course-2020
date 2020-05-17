@@ -1,8 +1,11 @@
-import { GameOfLife } from './components'
+import { App } from './components/App'
+import { BrowserRouter } from 'react-router-dom'
 import React from 'react'
 import { render } from 'react-dom'
 
 render(
-	<GameOfLife username="" rowCount={10} colCount={10} cellSize={30} />,
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
 	document.getElementById('root'),
 )
