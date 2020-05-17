@@ -5,6 +5,7 @@ import { GameField } from './components/GameField/GameField'
 import { useField } from './useField'
 
 interface GameOfLifeProps {
+	username: string
 	rowCount: number
 	colCount: number
 	cellSize: number
@@ -12,6 +13,7 @@ interface GameOfLifeProps {
 }
 
 export const GameOfLife: React.FC<GameOfLifeProps> = ({
+	username,
 	rowCount,
 	colCount,
 	cellSize,

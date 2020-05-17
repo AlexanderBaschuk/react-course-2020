@@ -1,6 +1,6 @@
 import { GameOfLife } from "./GameOfLife"
-import { mount } from "enzyme"
 import React from 'react'
+import { mount } from "enzyme"
 
 const getCell = (field: any, row: number, column: number) => {
 	const result = field.find(`Styled(div)[data-row=${row}][data-column=${column}]`)
@@ -11,7 +11,7 @@ const getCell = (field: any, row: number, column: number) => {
 
 describe('Game of Life field', () => {
 	it('should change cell color when the cell is clicked', () => {
-		const field = mount(<GameOfLife rowCount={2} colCount={2} cellSize={10} density={0} />)
+		const field = mount(<GameOfLife username='' rowCount={2} colCount={2} cellSize={10} density={0} />)
 		const initialCell = getCell(field, 0, 0)
 
 		initialCell.simulate('click')
@@ -21,7 +21,7 @@ describe('Game of Life field', () => {
 	})
 
 	it('should not change other cells color when a cell is clicked', () => {
-		const field = mount(<GameOfLife rowCount={2} colCount={2} cellSize={10} density={0}/>)
+		const field = mount(<GameOfLife username='' rowCount={2} colCount={2} cellSize={10} density={0}/>)
 		const initialCell = getCell(field, 0, 0)
 
 		initialCell.simulate('click')

@@ -3,7 +3,7 @@ import {
 	FieldControls,
 	PlaybackControls,
 } from './components/GameOfLife/components'
-import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 
 import { Field } from './components/GameOfLife/engine'
 import { GameField } from './components/GameOfLife/components/GameField/GameField'
@@ -24,6 +24,7 @@ export const LoginFormStory: React.FC = () => {
 export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife
+			username={text('username', 'username123')}
 			rowCount={number('rowCount', 10)}
 			colCount={number('colCount', 10)}
 			cellSize={number('cellSize', 20)}
