@@ -1,4 +1,8 @@
-import { CellStyled, FieldControls, PlaybackControls } from './components/GameOfLife/components'
+import {
+	CellStyled,
+	FieldControls,
+	PlaybackControls,
+} from './components/GameOfLife/components'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 
 import { Field } from './components/GameOfLife/engine'
@@ -14,7 +18,7 @@ export default {
 }
 
 export const LoginFormStory: React.FC = () => {
-	return <LoginForm />
+	return <LoginForm logIn={action('logIn')} />
 }
 
 export const GameOfLifeStory: React.FC = () => {
