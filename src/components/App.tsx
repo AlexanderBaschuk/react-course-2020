@@ -1,19 +1,25 @@
 import { GameOfLife, HeaderPanel, LoginForm } from '.'
-import React, { useCallback, useState } from 'react'
-import {
-	Redirect,
-	Route,
-	Switch,
-	useHistory,
-} from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 
+const USERNAME_KEY = 'username'
 const HOME_PATH = '/'
 const LOGIN_PATH = '/login'
 
 export const App: React.FC = () => {
-	const [username, setUsername] = useState<string>()
+	const [username, setUsername] = useState<string>(
+		localStorage.getItem(USERNAME_KEY) || undefined,
+	)
 
 	const history = useHistory()
+
+	useEffect(() => {
+		if (username) {
+			localStorage.setItem(USERNAME_KEY, username)
+		} else {
+			localStorage.removeItem(USERNAME_KEY)
+		}
+	}, [username])
 
 	const logIn = useCallback(
 		(name: string) => {
