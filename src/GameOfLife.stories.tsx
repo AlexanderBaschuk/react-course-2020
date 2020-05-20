@@ -8,6 +8,7 @@ import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import { Field } from './components/GameOfLife/engine'
 import { GameField } from './components/GameOfLife/components/GameField/GameField'
 import { GameOfLife } from './components/GameOfLife/GameOfLife'
+import { HeaderPanel } from './components'
 import { LoginForm } from './components/LoginForm/LoginForm'
 import React from 'react'
 import { action } from '@storybook/addon-actions'
@@ -19,6 +20,10 @@ export default {
 
 export const LoginFormStory: React.FC = () => {
 	return <LoginForm logIn={action('logIn')} />
+}
+
+export const HeaderPanelStory: React.FC = () => {
+	return <HeaderPanel username={text('username', 'username123')} logOut={action('logOut')} />
 }
 
 export const GameOfLifeStory: React.FC = () => {

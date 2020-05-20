@@ -5,7 +5,7 @@ import {
 	Switch,
 	useHistory,
 } from 'react-router-dom'
-import { GameOfLife, LoginForm } from '.'
+import { GameOfLife, HeaderPanel, LoginForm } from '.'
 import React, { useCallback, useState } from 'react'
 
 export const App: React.FC = () => {
@@ -27,12 +27,10 @@ export const App: React.FC = () => {
 				{username === void 0 ? (
 					<Redirect to="/login" />
 				) : (
-					<GameOfLife
-						username={username}
-						rowCount={10}
-						colCount={10}
-						cellSize={30}
-					/>
+					<>
+						<HeaderPanel username={username} logOut={() => {}} />
+						<GameOfLife rowCount={10} colCount={10} cellSize={30} />
+					</>
 				)}
 			</Route>
 			<Route exact path="/login">
