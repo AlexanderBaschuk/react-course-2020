@@ -24,14 +24,14 @@ export const App: React.FC = () => {
 	)
 
 	const logOut = useCallback(() => {
-		setUsername(void 0)
+		setUsername(undefined)
 		history.push('/login')
 	}, [history])
 
 	return (
 		<Switch>
 			<Route exact path={HOME_PATH}>
-				{username === void 0 ? (
+				{username === undefined ? (
 					<Redirect to={LOGIN_PATH} />
 				) : (
 					<>
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
 				<LoginForm logIn={logIn} />
 			</Route>
 			<Route path="*">
-				<h2>Oops. The page doesn&apos;t exist</h2>
+				<Redirect to={LOGIN_PATH} />
 			</Route>
 		</Switch>
 	)
