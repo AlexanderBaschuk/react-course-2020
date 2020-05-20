@@ -9,7 +9,7 @@ export interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ logIn }) => {
 	const { name, changeName } = useLogin()
 
-	const submit = useCallback(() => {
+	const submit = useCallback((event) => {
 		event.preventDefault()
 		logIn(name)
 	}, [logIn, name])
