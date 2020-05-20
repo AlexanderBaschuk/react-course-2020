@@ -29,7 +29,6 @@ export const HeaderPanelStory: React.FC = () => {
 export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife
-			username={text('username', 'username123')}
 			rowCount={number('rowCount', 10)}
 			colCount={number('colCount', 10)}
 			cellSize={number('cellSize', 20)}
