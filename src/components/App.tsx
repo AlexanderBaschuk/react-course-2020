@@ -36,21 +36,17 @@ export const App: React.FC = () => {
 
 	return (
 		<Switch>
-			<Route exact path={HOME_PATH}>
-				{username === undefined ? (
-					<Redirect to={LOGIN_PATH} />
-				) : (
-					<>
-						<HeaderPanel username={username} logOut={logOut} />
-						<GameOfLife rowCount={10} colCount={10} cellSize={30} />
-					</>
-				)}
-			</Route>
+			{username && (
+				<Route exact path={HOME_PATH}>
+					<HeaderPanel username={username} logOut={logOut} />
+					<GameOfLife rowCount={10} colCount={10} cellSize={30} />
+				</Route>
+			)}
 			<Route exact path={LOGIN_PATH}>
 				<LoginForm logIn={logIn} />
 			</Route>
 			<Route path="*">
-				<Redirect to={LOGIN_PATH} />
+				<Redirect to={username ? HOME_PATH : LOGIN_PATH} />
 			</Route>
 		</Switch>
 	)
