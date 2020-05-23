@@ -1,6 +1,8 @@
 import {
 	ExpectedTeam,
 	OriginalTeam,
+	SomeArray,
+	SomeElement,
 	originalArrayToExpectedArray,
 	originalTeamToExpectedTeam,
 	originalTeamToExpectedTeamDeep,
@@ -20,16 +22,16 @@ test('team to team', () => {
 		roster: 25,
 	}
 
-	expect(originalTeamToExpectedTeam(originalTeam)).toBe(expectedTeam)
+	expect(originalTeamToExpectedTeam(originalTeam)).toEqual(expectedTeam)
 })
 
 // Задание 2
 test('array to array', () => {
-	const originalArray = Object.freeze([1, 2, 3, 4])
+	const originalArray = Object.freeze<SomeArray>([1, 2, 3, 4])
 
 	const expectedArray = ['two', 3, 4, 5]
 
-	expect(originalArrayToExpectedArray(originalArray)).toBe(expectedArray)
+	expect(originalArrayToExpectedArray(originalArray)).toEqual(expectedArray)
 })
 
 // Задание 3
@@ -50,5 +52,5 @@ test('team to team deep', () => {
 		},
 	}
 
-	expect(originalTeamToExpectedTeamDeep(originalTeam)).toBe(expectedTeam)
+	expect(originalTeamToExpectedTeamDeep(originalTeam)).toStrictEqual(expectedTeam)
 })

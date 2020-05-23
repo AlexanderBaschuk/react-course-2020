@@ -26,10 +26,10 @@ export const originalTeamToExpectedTeam = (
 })
 
 // Задание 2
-type Element = number | string
-type SomeArray = Array<Element>
+export type SomeElement = number | string
+export type SomeArray = SomeElement[]
 
-const numberToString = (n: Element): string => {
+const numberToString = (n: SomeElement): string => {
 	switch (n) {
 		case 0:
 			return 'zero'
@@ -43,14 +43,13 @@ const numberToString = (n: Element): string => {
 }
 
 export const originalArrayToExpectedArray = (
-	originalArray: SomeArray,
-): SomeArray =>
+	originalArray: readonly SomeElement[],
+): SomeElement[] =>
 	originalArray
-		.map(item => typeof item == 'number' ? item + 1 : item)
+		.map((item) => (typeof item == 'number' ? item + 1 : item))
 		.map((item, index) => (index == 0 ? numberToString(item) : item))
 
 // Задание 3
-
 export type Team = {
 	name: string
 	captain: {
@@ -62,5 +61,5 @@ export type Team = {
 export const originalTeamToExpectedTeamDeep = (originalTeam: Team): Team => {
 	const copy = JSON.parse(JSON.stringify(originalTeam))
 	copy.captain.age++
-	return copy;
+	return copy
 }
