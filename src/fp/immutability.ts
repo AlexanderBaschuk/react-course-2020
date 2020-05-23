@@ -46,8 +46,8 @@ export const originalArrayToExpectedArray = (
 	originalArray: readonly SomeElement[],
 ): SomeElement[] =>
 	originalArray
-		.map((item) => (typeof item == 'number' ? item + 1 : item))
-		.map((item, index) => (index == 0 ? numberToString(item) : item))
+		.map((item) => (typeof item === 'number' ? item + 1 : item))
+		.map((item, index) => (index === 0 ? numberToString(item) : item))
 
 // Задание 3
 export type Team = {
