@@ -1,6 +1,6 @@
 import { GameOfLife } from "./GameOfLife"
-import { mount } from "enzyme"
 import React from 'react'
+import { mount } from "enzyme"
 
 const getCell = (field: any, row: number, column: number) => {
 	const result = field.find(`Styled(div)[data-row=${row}][data-column=${column}]`)

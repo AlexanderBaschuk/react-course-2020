@@ -35,14 +35,11 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 		setAutoplay(!autoplay)
 	}, [autoplay, setAutoplay, step])
 
-	const changeSpeed = useCallback(
-		(value: number) => {
-			console.log(`Changing speed to ${value}`)
-			if (value <= 0) return
-			setSpeed(1000 / value)
-		},
-		[],
-	)
+	const changeSpeed = useCallback((value: number) => {
+		console.log(`Changing speed to ${value}`)
+		if (value <= 0) return
+		setSpeed(1000 / value)
+	}, [])
 
 	const invertCell = useCallback(
 		(row: number, col: number) => {
