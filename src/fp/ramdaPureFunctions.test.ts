@@ -11,7 +11,6 @@ import {
 	getTopTeam,
 	joinWithAmp,
 	parseQs,
-	splitToKeyValuePairs,
 } from './ramdaPureFunctions'
 
 describe('teams', () => {

@@ -14,7 +14,7 @@ export type ExpectedTeam = {
 const namesMap = {
 	'Tampa Bay Roosters': 'New York Badgers',
 	'Rooster Bay Tampas': 'Badger York News',
-	'Bayster Roo Tampax': 'Yorker Bad News',
+	'Bayster Tampax Roo': 'Yorker New Badge',
 }
 
 export const originalTeamToExpectedTeam = (
@@ -59,7 +59,12 @@ export type Team = {
 }
 
 export const originalTeamToExpectedTeamDeep = (originalTeam: Team): Team => {
-	const copy = JSON.parse(JSON.stringify(originalTeam))
-	copy.captain.age++
+	const copy: Team = {
+		name: originalTeam.name,
+		captain: {
+			name: originalTeam.captain.name,
+			age: originalTeam.captain.age + 1,
+		},
+	}
 	return copy
 }
