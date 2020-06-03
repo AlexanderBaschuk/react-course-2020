@@ -1,10 +1,11 @@
-import { GameOfLife, HeaderPanel, LoginForm } from '.'
+import { AsyncFlow, GameOfLife, HeaderPanel, LoginForm } from '.'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 
 const USERNAME_KEY = 'username'
 const HOME_PATH = '/'
 const LOGIN_PATH = '/login'
+const ASYNC_FLOW_PATH = '/async'
 
 export const App: React.FC = () => {
 	const [username, setUsername] = useState<string>(
@@ -44,6 +45,9 @@ export const App: React.FC = () => {
 			)}
 			<Route exact path={LOGIN_PATH}>
 				<LoginForm logIn={logIn} />
+			</Route>
+			<Route exact path={ASYNC_FLOW_PATH}>
+				<AsyncFlow />
 			</Route>
 			<Route path="*">
 				<Redirect to={username ? HOME_PATH : LOGIN_PATH} />

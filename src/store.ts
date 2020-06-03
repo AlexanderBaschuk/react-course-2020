@@ -5,4 +5,5 @@ import { rootReducer } from "./reducer";
 export const store = configureStore({
 	reducer: rootReducer,
 	preloadedState: initialState,
+	middleware: []
 });

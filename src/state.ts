@@ -1,1 +1,5 @@
-export const initialState = {}
+export interface IState {
+	swPeople: string
+}
+
+export const initialState = { swPeople: '' }
