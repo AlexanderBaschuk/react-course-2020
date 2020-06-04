@@ -1,5 +1,12 @@
 export interface IState {
-	swPeople: string
+	asyncFlow: IAsyncFlowState
 }
 
-export const initialState = { swPeople: '' }
+export interface IAsyncFlowState {
+	isLoading: boolean
+	swPeople: Object
+}
+
+export const initialState: IState = {
+	asyncFlow: { isLoading: false, swPeople: { names: ['Luke', 'OWK', 'Yoda'] } },
+}
