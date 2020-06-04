@@ -1,5 +1,6 @@
+import { Action, ThunkAction, combineReducers } from '@reduxjs/toolkit'
+
 import { asyncFlowSlice } from './App/MiddlewareExercise/AsyncFlow/asyncFlow.slice'
-import { combineReducers } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const rootReducer = combineReducers({
@@ -10,5 +11,6 @@ export type RootState = ReturnType<typeof rootReducer>
 
 export const store = configureStore({
 	reducer: rootReducer,
-	middleware: [],
 })
+
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>

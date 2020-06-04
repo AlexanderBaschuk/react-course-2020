@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export interface IAsyncFlowState {
 	isLoading: boolean
@@ -14,8 +14,13 @@ export const asyncFlowSlice = createSlice({
 	name: 'asyncFlow',
 	initialState: asyncFlowInitialState,
 	reducers: {
-		changePeople(state, action) {
-			return state
+		changePeople(state, action: PayloadAction<Object>) {
+			state.swPeople = JSON.stringify(action.payload)
+		},
+		setIsLoading(state, action: PayloadAction<boolean>) {
+			state.isLoading = action.payload
 		},
 	},
 })
+
+export const { changePeople, setIsLoading } = asyncFlowSlice.actions
