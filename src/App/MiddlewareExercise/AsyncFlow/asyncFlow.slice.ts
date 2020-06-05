@@ -7,7 +7,7 @@ export interface IAsyncFlowState {
 
 const asyncFlowInitialState: IAsyncFlowState = {
 	isLoading: false,
-	swPeople: { names: ['Luke', 'Lea', 'Darth'] },
+	swPeople: 'Click the button to load them!',
 }
 
 export const asyncFlowSlice = createSlice({
@@ -15,10 +15,11 @@ export const asyncFlowSlice = createSlice({
 	initialState: asyncFlowInitialState,
 	reducers: {
 		changePeople(state, action: PayloadAction<Object>) {
-			state.swPeople = JSON.stringify(action.payload)
+			state.isLoading = false
+			state.swPeople = action.payload
 		},
-		setIsLoading(state, action: PayloadAction<boolean>) {
-			state.isLoading = action.payload
+		setIsLoading(state, action?: PayloadAction<boolean>) {
+			state.isLoading = action?.payload ?? true
 		},
 	},
 })

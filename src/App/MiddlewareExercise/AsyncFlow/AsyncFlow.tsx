@@ -20,8 +20,7 @@ export const AsyncFlow: React.FC = () => {
 			<div>
 				<button onClick={loadPeople}>Load SW people</button>
 			</div>
-			{isLoading && <div>loading...</div>}
-			<div>{swPeopleText}</div>
+			{isLoading ? 'loading...' : swPeopleText}
 		</>
 	)
 }
