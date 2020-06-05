@@ -41,10 +41,6 @@ module.exports = {
 		historyApiFallback: true,
 		hot: true,
 		overlay: true,
-		headers: {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Headers': '*',
-		},
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
