@@ -2,24 +2,23 @@ import { changePeople, setErrorMessage, setIsLoading } from './asyncFlow.slice'
 
 import { AppThunk } from 'src/store'
 
-export const fetchSwPeopleThunk = (): AppThunk => (dispatch) => {
+export const fetchSwPeopleThunk = (): AppThunk => async (dispatch) => {
 	dispatch(setIsLoading())
-	fetch('https://swapi.dev/api/people/', { method: 'GET' })
-		.then(async (response) => {
-			if (response.ok) {
-				const result = await response.json()
-				dispatch(changePeople(result))
-			} else {
-				dispatch(
-					setErrorMessage(
-						`Response status: ${response.status} (${response.statusText})`,
-					),
-				)
-			}
+	try {
+		const response: Response = await fetch('https://swapi.dev/api/people/', {
+			method: 'GET',
 		})
-		.catch((error) => {
-			setErrorMessage(
-				`Error while loading data: ${error}`,
+		if (response?.ok) {
+			const result = await response.json()
+			dispatch(changePeople(result))
+		} else {
+			dispatch(
+				setErrorMessage(
+					`Response status: ${response?.status} (${response?.statusText})`,
+				),
 			)
-		})
+		}
+	} catch (error) {
+		dispatch(setErrorMessage(`Error while loading data: ${error}`))
+	}
 }
