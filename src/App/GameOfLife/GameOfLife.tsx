@@ -1,53 +1,59 @@
 import { FieldControls, PlaybackControls } from './components'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import {
+	autoplaySelector,
+	densitySelector,
+	speedSelector,
+} from './gameOfLife.selectors'
+import { setAutoplay, setField, setSpeed } from './gameOfLife.slice'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { GameField } from './components/GameField/GameField'
+import { getInitialState } from './engine'
 import { useField } from './useField'
 
 interface GameOfLifeProps {
 	rowCount: number
 	colCount: number
 	cellSize: number
-	density?: number
 }
 
 export const GameOfLife: React.FC<GameOfLifeProps> = ({
 	rowCount,
 	colCount,
 	cellSize,
-	density = 0.4,
 }) => {
-	const { field, reset, resize, changeCell, step } = useField(
-		rowCount,
-		colCount,
-		density,
-	)
+	const { reset, resize, changeCell, step } = useField()
 
-	const [autoplay, setAutoplay] = useState(false)
-	const [speed, setSpeed] = useState(100)
-	const [animate, setAnimate] = useState(false)
+	const dispatch = useDispatch()
+	const autoplay = useSelector(autoplaySelector)
+	const speed = useSelector(speedSelector)
+	const density = useSelector(densitySelector)
 
 	const toggleAutoplay = useCallback(() => {
 		if (!autoplay) {
-			setAnimate(true)
 			step()
 		}
-		setAutoplay(!autoplay)
-	}, [autoplay, setAutoplay, step])
+		dispatch(setAutoplay(!autoplay))
+	}, [autoplay, dispatch, step])
 
-	const changeSpeed = useCallback((value: number) => {
-		console.log(`Changing speed to ${value}`)
-		if (value <= 0) return
-		setSpeed(1000 / value)
-	}, [])
+	const changeSpeed = useCallback(
+		(value: number) => {
+			dispatch(setSpeed(1000 / value))
+		},
+		[dispatch],
+	)
 
 	const invertCell = useCallback(
 		(row: number, col: number) => {
-			setAnimate(false)
 			changeCell(row, col)
 		},
 		[changeCell],
 	)
+
+	useEffect(() => {
+		dispatch(setField(getInitialState(rowCount, colCount, density)))
+	}, [])
 
 	useEffect(() => {
 		if (!autoplay) {
@@ -68,7 +74,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 				rowCount={rowCount}
 				colCount={colCount}
 				setSize={resize}
-				density={density}
 				setDensity={reset}
 			/>
 			<PlaybackControls
@@ -77,13 +82,7 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 				togglePlay={toggleAutoplay}
 				setSpeed={changeSpeed}
 			/>
-			<GameField
-				field={field}
-				cellSize={cellSize}
-				clickCell={invertCell}
-				animate={animate}
-				duration={150}
-			/>
+			<GameField cellSize={cellSize} clickCell={invertCell} />
 		</>
 	)
 }

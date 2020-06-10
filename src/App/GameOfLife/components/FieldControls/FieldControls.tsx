@@ -1,11 +1,21 @@
-import { ClearButton, ControlsPanelStyled, FieldControlsAreaStyled, FieldControlsWrapperStyled, InputLabel, InputStyled } from './FieldControls.styles'
+import {
+	ClearButton,
+	ControlsPanelStyled,
+	FieldControlsAreaStyled,
+	FieldControlsWrapperStyled,
+	InputLabel,
+	InputStyled,
+} from './FieldControls.styles'
 import React, { useCallback, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { densitySelector } from '../../gameOfLife.selectors'
+import { saveDensity } from '../../gameOfLife.slice'
 
 interface FieldControlsProps {
 	rowCount: number
 	colCount: number
 	setSize: (rows: number, columns: number) => void
-	density: number
 	setDensity: (value: number) => void
 }
 
@@ -13,16 +23,19 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 	rowCount,
 	colCount,
 	setSize,
-	density,
 	setDensity,
 }) => {
+	const density = useSelector(densitySelector)
+	const dispatch = useDispatch()
+
 	const densityInput = useRef<HTMLInputElement>()
 	const rowsInput = useRef<HTMLInputElement>()
 	const columnsInput = useRef<HTMLInputElement>()
 
 	const clearField = useCallback(() => {
+		dispatch(saveDensity(0))
 		setDensity(0)
-	}, [setDensity])
+	}, [dispatch, setDensity])
 
 	const changeSize = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
@@ -38,9 +51,10 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 		(event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 			const newDensity = Number(densityInput.current.value)
+			dispatch(saveDensity(newDensity))
 			setDensity(newDensity)
 		},
-		[setDensity],
+		[dispatch, setDensity],
 	)
 
 	return (
@@ -70,7 +84,11 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 				<ControlsPanelStyled>
 					<form onSubmit={changeDensity}>
 						<InputLabel>Density: </InputLabel>
-						<InputStyled type="text" defaultValue={density} ref={densityInput} />
+						<InputStyled
+							type="text"
+							defaultValue={density}
+							ref={densityInput}
+						/>
 						<input type="submit" value="Generate" />
 					</form>
 				</ControlsPanelStyled>

@@ -1,5 +1,4 @@
-import { DEFAULT_EXTENSIONS } from "@babel/core";
-import { Field } from "./engine";
+import { Field } from './engine'
 
 export interface IGameOfLifeState {
 	autoplay: boolean
@@ -12,5 +11,5 @@ export const gameOfLifeInitialState: IGameOfLifeState = {
 	autoplay: false,
 	speed: 100,
 	density: 0.4,
-	field: undefined,
+	field: { cells: [[false]], rowCount: 1, colCount: 1 },
 }

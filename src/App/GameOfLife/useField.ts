@@ -1,58 +1,54 @@
 import {
-	Field,
 	calculateNextField,
 	getInitialState,
 	invertOneCell,
 	resize as resizeField,
 } from './engine'
-import { useCallback, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { fieldSelector } from './gameOfLife.selectors'
+import { setField } from './gameOfLife.slice'
+import { useCallback } from 'react'
 
 interface UseFieldReturnType {
-	field: Field
 	reset: (density: number) => void
 	resize: (rowCount: number, colCount: number) => void
 	changeCell: (row: number, col: number) => void
 	step: () => void
 }
 
-export const useField = (
-	rowCount: number,
-	colCount: number,
-	density: number,
-): UseFieldReturnType => {
-	const [field, setField] = useState<Field>(
-		getInitialState(rowCount, colCount, density),
-	)
+export const useField = (): UseFieldReturnType => {
+	const field = useSelector(fieldSelector)
+	const dispatch = useDispatch()
 
 	const reset = useCallback(
 		(density) => {
-			setField(getInitialState(field.rowCount, field.colCount, density))
+			dispatch(setField(getInitialState(field.rowCount, field.colCount, density)))
 		},
-		[field],
+		[dispatch, field],
 	)
 
 	const resize = useCallback(
 		(rowCount: number, colCount: number) => {
-			setField(resizeField(field, rowCount, colCount))
+			dispatch(setField(resizeField(field, rowCount, colCount)))
 		},
-		[field],
+		[dispatch, field],
 	)
 
 	const changeCell = useCallback(
 		(row: number, col: number) => {
 			const newField = invertOneCell(field, row, col)
-			setField(newField)
+			dispatch(setField(newField))
 		},
-		[field],
+		[dispatch, field],
 	)
 
 	const step = useCallback((): void => {
 		const newField = calculateNextField(field)
-		setField(newField)
-	}, [field])
+		dispatch((setField(newField)))
+	}, [dispatch, field])
 
 	return {
-		field,
 		reset,
 		resize,
 		changeCell,

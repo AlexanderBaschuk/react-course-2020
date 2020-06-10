@@ -1,13 +1,13 @@
-import { Field } from './App/GameOfLife/engine'
-import { IGameOfLifeState } from './App/GameOfLife/gameOfLife.state'
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-interface IState {
-	gameOfLife: IGameOfLifeState
-}
+import { gameOfLifeSlice } from './App/GameOfLife/gameOfLife.slice'
 
-export const reducer = (state: IState) => state
+export const reducer = combineReducers({
+	gameOfLife: gameOfLifeSlice.reducer,
+})
 
 export const store = configureStore({
 	reducer,
 })
+
+export type IState = ReturnType<typeof reducer>
