@@ -1,9 +1,13 @@
+import { Field } from './App/GameOfLife/engine'
+import { IGameOfLifeState } from './App/GameOfLife/gameOfLife.state'
 import { configureStore } from '@reduxjs/toolkit'
 
-export const rootReducer = (state) => state
+interface IState {
+	gameOfLife: IGameOfLifeState
+}
 
-export type IState = ReturnType<typeof rootReducer>
+export const reducer = (state: IState) => state
 
 export const store = configureStore({
-	reducer: rootReducer,
+	reducer,
 })
