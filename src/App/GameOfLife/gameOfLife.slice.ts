@@ -25,9 +25,6 @@ export const gameOfLifeSlice = createSlice({
 		setAutoplay(state: IGameOfLifeState) {
 			state.autoplay = !state.autoplay
 		},
-		saveDensity(state: IGameOfLifeState, action: PayloadAction<number>) {
-			state.density = action.payload
-		},
 		setSpeed(state: IGameOfLifeState, action: PayloadAction<number>) {
 			if (action.payload > 0) {
 				state.speed = action.payload
@@ -44,6 +41,5 @@ export const {
 	setField,
 	changeCell,
 	setAutoplay,
-	saveDensity,
 	setSpeed,
 } = gameOfLifeSlice.actions

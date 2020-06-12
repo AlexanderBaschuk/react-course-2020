@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { gameOfLifeInit, gameOfLifeSaga } from './App/GameOfLife/gameOfLife.saga'
 
 import createSagaMiddleware from 'redux-saga'
 import { fork } from 'redux-saga/effects'
+import { gameOfLifeSaga } from './App/GameOfLife/gameOfLife.saga'
 import { gameOfLifeSlice } from './App/GameOfLife/gameOfLife.slice'
 
 export const reducer = combineReducers({

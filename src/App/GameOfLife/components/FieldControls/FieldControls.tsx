@@ -6,26 +6,17 @@ import {
 	InputLabel,
 	InputStyled,
 } from './FieldControls.styles'
+import {
+	DEFAULT_COL_COUNT,
+	DEFAULT_DENSITY,
+	DEFAULT_ROW_COUNT,
+} from '../../gameOfLife.state'
 import React, { useCallback, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { resetAction, resizeAction } from '../../gameOfLife.slice'
 
-import { densitySelector } from '../../gameOfLife.selectors'
-import { saveDensity } from '../../gameOfLife.slice'
+import { useDispatch } from 'react-redux'
 
-interface FieldControlsProps {
-	rowCount: number
-	colCount: number
-	setSize: (rows: number, columns: number) => void
-	setDensity: (value: number) => void
-}
-
-export const FieldControls: React.FC<FieldControlsProps> = ({
-	rowCount,
-	colCount,
-	setSize,
-	setDensity,
-}) => {
-	const density = useSelector(densitySelector)
+export const FieldControls: React.FC = () => {
 	const dispatch = useDispatch()
 
 	const densityInput = useRef<HTMLInputElement>()
@@ -33,28 +24,26 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 	const columnsInput = useRef<HTMLInputElement>()
 
 	const clearField = useCallback(() => {
-		dispatch(saveDensity(0))
-		setDensity(0)
-	}, [dispatch, setDensity])
+		dispatch(resetAction(0))
+	}, [dispatch])
 
 	const changeSize = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 			const newRows = Number(rowsInput.current.value)
 			const newColumns = Number(columnsInput.current.value)
-			setSize(newRows, newColumns)
+			dispatch(resizeAction({ rowCount: newRows, colCount: newColumns }))
 		},
-		[setSize],
+		[dispatch],
 	)
 
 	const changeDensity = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 			const newDensity = Number(densityInput.current.value)
-			dispatch(saveDensity(newDensity))
-			setDensity(newDensity)
+			dispatch(resetAction(newDensity))
 		},
-		[dispatch, setDensity],
+		[dispatch],
 	)
 
 	return (
@@ -69,13 +58,13 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 						<InputStyled
 							type="text"
 							title="Rows"
-							defaultValue={rowCount}
+							defaultValue={DEFAULT_ROW_COUNT}
 							ref={rowsInput}
 						/>
 						<InputStyled
 							type="text"
 							title="Columns"
-							defaultValue={colCount}
+							defaultValue={DEFAULT_COL_COUNT}
 							ref={columnsInput}
 						/>
 						<input type="submit" value="Set size" />
@@ -86,7 +75,7 @@ export const FieldControls: React.FC<FieldControlsProps> = ({
 						<InputLabel>Density: </InputLabel>
 						<InputStyled
 							type="text"
-							defaultValue={density}
+							defaultValue={DEFAULT_DENSITY}
 							ref={densityInput}
 						/>
 						<input type="submit" value="Generate" />

@@ -13,11 +13,6 @@ export const autoplaySelector = createSelector(
 	(gameOfLife) => gameOfLife.autoplay,
 )
 
-export const densitySelector = createSelector(
-	gameOfLifeSelector,
-	(gameOfLife) => gameOfLife.density,
-)
-
 export const speedSelector = createSelector(
 	gameOfLifeSelector,
 	(gameOfLife) => gameOfLife.speed,

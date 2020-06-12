@@ -1,4 +1,9 @@
 import {
+	DEFAULT_COL_COUNT,
+	DEFAULT_DENSITY,
+	DEFAULT_ROW_COUNT,
+} from './gameOfLife.state'
+import {
 	autoplaySelector,
 	fieldSelector,
 	speedSelector,
@@ -22,7 +27,12 @@ import {
 } from './gameOfLife.slice'
 
 function* initializeField() {
-	const field = getInitialState(10, 10, 0.4)
+	console.log('INIT')
+	const field = getInitialState(
+		DEFAULT_ROW_COUNT,
+		DEFAULT_COL_COUNT,
+		DEFAULT_DENSITY,
+	)
 	yield put(setField(field))
 }
 
@@ -80,8 +90,5 @@ export function* gameOfLifeSaga() {
 	yield takeEvery(stepAction, step)
 	yield takeEvery(setAutoplay, start)
 	yield takeLatest([changeCell, setField], scheduleNextStep)
-}
-
-export function* gameOfLifeInit() {
-	yield call(initializeField)
+	//yield call(initializeField)
 }

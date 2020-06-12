@@ -1,20 +1,20 @@
 import { GameFieldStyled, RowStyled } from './GameField.styles'
 
 import { CellStyled } from '.'
+import { Field } from '../../engine'
 import React from 'react'
-import { fieldSelector } from '../../gameOfLife.selectors'
-import { useSelector } from 'react-redux'
 
 interface IGameFieldProps {
+	field: Field
 	cellSize: number
 	clickCell: (row: number, col: number) => void
 }
 
 export const GameField: React.FC<IGameFieldProps> = ({
+	field,
 	cellSize,
 	clickCell,
 }) => {
-	const field = useSelector(fieldSelector)
 	return (
 		<GameFieldStyled>
 			{field.cells.map((row, i) => (

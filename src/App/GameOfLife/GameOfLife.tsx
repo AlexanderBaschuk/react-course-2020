@@ -1,56 +1,45 @@
+import {
+	DEFAULT_COL_COUNT,
+	DEFAULT_DENSITY,
+	DEFAULT_ROW_COUNT,
+} from './gameOfLife.state'
 import { FieldControls, PlaybackControls } from './components'
-import React, { useEffect } from 'react'
-import { autoplaySelector, densitySelector } from './gameOfLife.selectors'
+import React, { useCallback, useEffect } from 'react'
+import { changeCell, setField } from './gameOfLife.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { GameField } from './components/GameField/GameField'
+import { fieldSelector } from './gameOfLife.selectors'
 import { getInitialState } from './engine'
-import { setField } from './gameOfLife.slice'
-import { useField } from './useField'
 
 interface GameOfLifeProps {
-	rowCount: number
-	colCount: number
 	cellSize: number
 }
 
-export const GameOfLife: React.FC<GameOfLifeProps> = ({
-	rowCount,
-	colCount,
-	cellSize,
-}) => {
-	const {
-		reset,
-		resize,
-		step,
-		toggleAutoplay,
-		changeSpeed,
-		invertCell,
-	} = useField()
+export const GameOfLife: React.FC<GameOfLifeProps> = ({ cellSize }) => {
+	const field = useSelector(fieldSelector)
 
 	const dispatch = useDispatch()
-	const autoplay = useSelector(autoplaySelector)
-	const density = useSelector(densitySelector)
+	const invertCell = useCallback(
+		(row: number, col: number) => {
+			dispatch(changeCell({ row, col }))
+		},
+		[dispatch],
+	)
 
 	useEffect(() => {
-		dispatch(setField(getInitialState(rowCount, colCount, density)))
+		dispatch(
+			setField(
+				getInitialState(DEFAULT_ROW_COUNT, DEFAULT_COL_COUNT, DEFAULT_DENSITY),
+			),
+		)
 	}, [])
 
 	return (
 		<>
-			<FieldControls
-				rowCount={rowCount}
-				colCount={colCount}
-				setSize={resize}
-				setDensity={reset}
-			/>
-			<PlaybackControls
-				isPlaying={autoplay}
-				step={step}
-				togglePlay={toggleAutoplay}
-				setSpeed={changeSpeed}
-			/>
-			<GameField cellSize={cellSize} clickCell={invertCell} />
+			<FieldControls />
+			<PlaybackControls />
+			<GameField field={field} cellSize={cellSize} clickCell={invertCell} />
 		</>
 	)
 }

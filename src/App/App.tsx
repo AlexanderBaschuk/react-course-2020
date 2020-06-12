@@ -39,7 +39,7 @@ export const App: React.FC = () => {
 			{username && (
 				<Route exact path={HOME_PATH}>
 					<HeaderPanel username={username} logOut={logOut} />
-					<GameOfLife rowCount={10} colCount={10} cellSize={30} />
+					<GameOfLife cellSize={30} />
 				</Route>
 			)}
 			<Route exact path={LOGIN_PATH}>

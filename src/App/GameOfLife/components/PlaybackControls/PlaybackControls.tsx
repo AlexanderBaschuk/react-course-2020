@@ -6,49 +6,58 @@ import {
 	PlaybackControlsWrapperStyled,
 } from './PlaybackControls.styles'
 import React, { useCallback, useRef } from 'react'
+import { setAutoplay, setSpeed, stepAction } from '../../gameOfLife.slice'
+import { useDispatch, useSelector } from 'react-redux'
 
-interface PlaybackControlsProps {
-	isPlaying: boolean
-	step: () => void
-	togglePlay: () => void
-	setSpeed: (value: number) => void
-}
+import { autoplaySelector } from '../../gameOfLife.selectors'
 
-export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
-	isPlaying,
-	step,
-	togglePlay,
-	setSpeed,
-}) => {
+export const PlaybackControls: React.FC = () => {
+	const dispatch = useDispatch()
+	const isAutoplay = useSelector(autoplaySelector)
 	const speedInput = useRef<HTMLInputElement>()
+
+	const togglePlay = useCallback(() => {
+		dispatch(setAutoplay())
+	}, [dispatch])
+
+	const step = useCallback((): void => {
+		dispatch(stepAction())
+	}, [dispatch])
+
+	const setSpeedInternal = useCallback(
+		(value) => {
+			dispatch(setSpeed(value === 0 ? 0 : 1000 / value))
+		},
+		[dispatch],
+	)
 
 	const changeSpeed = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 			const newSpeed = Number(speedInput.current.value)
-			setSpeed(newSpeed)
+			setSpeedInternal(newSpeed)
 		},
-		[setSpeed],
+		[setSpeedInternal],
 	)
 
 	const increaseSpeed = useCallback(() => {
 		const newSpeed = Number(speedInput.current.value) + 1
 		speedInput.current.value = newSpeed.toString()
-		setSpeed(newSpeed)
-	}, [setSpeed])
+		setSpeedInternal(newSpeed)
+	}, [setSpeedInternal])
 
 	const decreaseSpeed = useCallback(() => {
 		const newSpeed = Number(speedInput.current.value) - 1
 		speedInput.current.value = newSpeed.toString()
-		setSpeed(newSpeed)
-	}, [setSpeed])
+		setSpeedInternal(newSpeed)
+	}, [setSpeedInternal])
 
 	return (
 		<PlaybackControlsWrapperStyled>
 			<PlaybackControlsAreaStyled>
 				<ControlWrapperStyled>
 					<button data-testid="start-stop-button" onClick={togglePlay}>
-						{isPlaying ? 'Stop' : 'Start'}
+						{isAutoplay ? 'Stop' : 'Start'}
 					</button>
 				</ControlWrapperStyled>
 				<ControlWrapperStyled>

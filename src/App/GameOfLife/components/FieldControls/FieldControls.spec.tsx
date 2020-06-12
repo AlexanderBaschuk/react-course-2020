@@ -1,18 +1,18 @@
+import { FieldControls } from '.'
 import React from 'react'
 import { mount } from 'enzyme'
-import { FieldControls } from '.'
 
 describe('Field controls', () => {
 	it('should set density 0 when pressing the Clear button', () => {
 		const setDensityMock = jest.fn()
 
 		const el = mount(
-			<FieldControls
+			<FieldControls /*
 				rowCount={5}
 				colCount={10}
 				setSize={jest.fn()}
 				density={0.5}
-				setDensity={setDensityMock}
+				setDensity={setDensityMock}*/
 			/>,
 		)
 		const clearButton = el.find('div button')
@@ -24,12 +24,12 @@ describe('Field controls', () => {
 		const setSizeMock = jest.fn()
 
 		const el = mount(
-			<FieldControls
+			<FieldControls /*
 				rowCount={5}
 				colCount={10}
 				setSize={setSizeMock}
 				density={0.5}
-				setDensity={jest.fn()}
+				setDensity={jest.fn()}*/
 			/>,
 		)
 		const fieldSizeForm = el.find('form').at(0)
@@ -51,12 +51,12 @@ describe('Field controls', () => {
 		const densityMock = jest.fn()
 
 		const el = mount(
-			<FieldControls
+			<FieldControls /*
 				rowCount={5}
 				colCount={10}
 				setSize={jest.fn()}
 				density={0.5}
-				setDensity={densityMock}
+				setDensity={densityMock}*/
 			/>,
 		)
 		const densityForm = el.find('form').at(1)
