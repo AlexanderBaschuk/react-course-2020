@@ -1,7 +1,16 @@
+import { Field, invertOneCell } from './engine'
 import { IGameOfLifeState, gameOfLifeInitialState } from './gameOfLife.state'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit'
 
-import { Field } from './engine'
+export interface Coordinates {
+	row: number
+	col: number
+}
+
+export interface FieldSize {
+	rowCount: number
+	colCount: number
+}
 
 export const gameOfLifeSlice = createSlice({
 	name: 'gameOfLife',
@@ -10,18 +19,31 @@ export const gameOfLifeSlice = createSlice({
 		setField(state: IGameOfLifeState, action: PayloadAction<Field>) {
 			state.field = action.payload
 		},
-		setAutoplay(state: IGameOfLifeState, action: PayloadAction<boolean>) {
-			state.autoplay = action.payload
+		changeCell(state: IGameOfLifeState, action: PayloadAction<Coordinates>) {
+			state.field = invertOneCell(state.field, action.payload.row, action.payload.col)
+		},
+		setAutoplay(state: IGameOfLifeState) {
+			state.autoplay = !state.autoplay
 		},
 		saveDensity(state: IGameOfLifeState, action: PayloadAction<number>) {
 			state.density = action.payload
 		},
 		setSpeed(state: IGameOfLifeState, action: PayloadAction<number>) {
-			if (action.payload > 0 ) {
+			if (action.payload > 0) {
 				state.speed = action.payload
 			}
 		},
 	},
 })
 
-export const { setField, setAutoplay, saveDensity, setSpeed } = gameOfLifeSlice.actions
+export const resetAction = createAction<number>('gameOfLife/reset')
+export const resizeAction = createAction<FieldSize>('gameOfLife/resize')
+export const stepAction = createAction('gameOfLife/step')
+
+export const {
+	setField,
+	changeCell,
+	setAutoplay,
+	saveDensity,
+	setSpeed,
+} = gameOfLifeSlice.actions

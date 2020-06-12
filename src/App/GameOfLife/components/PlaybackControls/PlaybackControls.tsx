@@ -66,11 +66,11 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
 					<ControlWrapperStyled>
 						<input type="submit" value="Set" />
 					</ControlWrapperStyled>
-					<ControlWrapperStyled>
-						<button onClick={decreaseSpeed}>-</button>
-						<button onClick={increaseSpeed}>+</button>
-					</ControlWrapperStyled>
 				</form>
+				<ControlWrapperStyled>
+					<button onClick={decreaseSpeed}>-</button>
+					<button onClick={increaseSpeed}>+</button>
+				</ControlWrapperStyled>
 			</PlaybackControlsAreaStyled>
 		</PlaybackControlsWrapperStyled>
 	)

@@ -1,57 +1,69 @@
 import {
-	calculateNextField,
-	getInitialState,
-	invertOneCell,
-	resize as resizeField,
-} from './engine'
-import { useDispatch, useSelector } from 'react-redux'
+	changeCell,
+	resetAction,
+	resizeAction,
+	setAutoplay,
+	setSpeed,
+	stepAction,
+} from './gameOfLife.slice'
 
-import { fieldSelector } from './gameOfLife.selectors'
-import { setField } from './gameOfLife.slice'
 import { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 
 interface UseFieldReturnType {
 	reset: (density: number) => void
 	resize: (rowCount: number, colCount: number) => void
-	changeCell: (row: number, col: number) => void
 	step: () => void
+	toggleAutoplay: () => void
+	changeSpeed: (value: number) => void
+	invertCell: (row: number, col: number) => void
 }
 
 export const useField = (): UseFieldReturnType => {
-	const field = useSelector(fieldSelector)
 	const dispatch = useDispatch()
 
 	const reset = useCallback(
 		(density) => {
-			dispatch(setField(getInitialState(field.rowCount, field.colCount, density)))
+			dispatch(resetAction(density))
 		},
-		[dispatch, field],
+		[dispatch],
 	)
 
 	const resize = useCallback(
 		(rowCount: number, colCount: number) => {
-			dispatch(setField(resizeField(field, rowCount, colCount)))
+			dispatch(resizeAction({ rowCount, colCount }))
 		},
-		[dispatch, field],
-	)
-
-	const changeCell = useCallback(
-		(row: number, col: number) => {
-			const newField = invertOneCell(field, row, col)
-			dispatch(setField(newField))
-		},
-		[dispatch, field],
+		[dispatch],
 	)
 
 	const step = useCallback((): void => {
-		const newField = calculateNextField(field)
-		dispatch((setField(newField)))
-	}, [dispatch, field])
+		dispatch(stepAction())
+	}, [dispatch])
+
+	const toggleAutoplay = useCallback(() => {
+		dispatch(setAutoplay())
+	}, [dispatch])
+
+	const changeSpeed = useCallback(
+		(value: number) => {
+			dispatch(setSpeed(1000 / value))
+		},
+		[dispatch],
+	)
+
+	const invertCell = useCallback(
+		(row: number, col: number) => {
+			dispatch(changeCell({ row, col }))
+		},
+		[dispatch],
+	)
 
 	return {
 		reset,
 		resize,
-		changeCell,
 		step,
+		toggleAutoplay,
+		changeSpeed,
+		invertCell,
 	}
 }
