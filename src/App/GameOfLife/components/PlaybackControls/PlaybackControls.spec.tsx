@@ -13,7 +13,7 @@ const createStore = () => {
 }
 
 describe('Playback controls', () => {
-	it('should call step when pressing the Step button', () => {
+	it('should dispatch step when pressing the Step button', () => {
 		const store = createStore()
 		const el = mount(
 			<Provider store={store}>
@@ -25,8 +25,7 @@ describe('Playback controls', () => {
 		expect(store.getActions()).toContainEqual(stepAction())
 	})
 
-	it('should call togglePlay when pressing the Play button', () => {
-		const playMock = jest.fn()
+	it('should dispatch setAutoplay when pressing the Play button', () => {
 		const store = createStore()
 		const el = mount(
 			<Provider store={store}>
@@ -38,8 +37,7 @@ describe('Playback controls', () => {
 		expect(store.getActions()).toContainEqual(setAutoplay())
 	})
 
-	it('should call setSpeed when submitting speed change', () => {
-		const setSpeedMock = jest.fn()
+	it('should dispatch setSpeed when submitting speed change', () => {
 		const store = createStore()
 		const el = mount(
 			<Provider store={store}>
@@ -53,7 +51,7 @@ describe('Playback controls', () => {
 		expect(store.getActions()).toContainEqual(setSpeed(100))
 	})
 
-	it('should call setSpeed when decreasing speed', () => {
+	it('should dispatch setSpeed when decreasing speed', () => {
 		const store = createStore()
 		const el = mount(
 			<Provider store={store}>
@@ -68,7 +66,7 @@ describe('Playback controls', () => {
 		expect(store.getActions()).toContainEqual(setSpeed(100))
 	})
 
-	it('should call setSpeed when increasing speed', () => {
+	it('should dispatch setSpeed when increasing speed', () => {
 		const store = createStore()
 		const el = mount(
 			<Provider store={store}>
