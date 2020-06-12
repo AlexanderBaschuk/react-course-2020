@@ -4,7 +4,7 @@ import {
 	GameField,
 	PlaybackControls,
 } from './components'
-import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+import { number, withKnobs } from '@storybook/addon-knobs'
 
 import { Field } from './engine'
 import { GameOfLife } from '.'

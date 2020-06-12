@@ -27,7 +27,6 @@ import {
 } from './gameOfLife.slice'
 
 function* initializeField() {
-	console.log('INIT')
 	const field = getInitialState(
 		DEFAULT_ROW_COUNT,
 		DEFAULT_COL_COUNT,
@@ -90,5 +89,5 @@ export function* gameOfLifeSaga() {
 	yield takeEvery(stepAction, step)
 	yield takeEvery(setAutoplay, start)
 	yield takeLatest([changeCell, setField], scheduleNextStep)
-	//yield call(initializeField)
+	yield call(initializeField)
 }
