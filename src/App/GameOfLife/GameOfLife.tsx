@@ -1,9 +1,9 @@
 import { FieldControls, PlaybackControls } from './components'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { changeCell, initAction } from './gameOfLife.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { GameField } from './components/GameField/GameField'
-import { changeCell } from './gameOfLife.slice'
 import { fieldSelector } from './gameOfLife.selectors'
 
 interface GameOfLifeProps {
@@ -21,6 +21,8 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({ cellSize }) => {
 		},
 		[dispatch],
 	)
+
+	useEffect(() => {dispatch(initAction())}, [dispatch])
 
 	return (
 		<>

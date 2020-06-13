@@ -19,6 +19,7 @@ import {
 } from 'redux-saga/effects'
 import {
 	changeCell,
+	initAction,
 	resetAction,
 	resizeAction,
 	setAutoplay,
@@ -27,7 +28,8 @@ import {
 } from './gameOfLife.slice'
 
 function* initializeField() {
-	const field = getInitialState(
+	const field = yield call(
+		getInitialState,
 		DEFAULT_ROW_COUNT,
 		DEFAULT_COL_COUNT,
 		DEFAULT_DENSITY,
@@ -37,7 +39,8 @@ function* initializeField() {
 
 function* generateField(action) {
 	const currentField = yield select(fieldSelector)
-	const field = getInitialState(
+	const field = yield call(
+		getInitialState,
 		currentField.rowCount,
 		currentField.colCount,
 		action.payload,
@@ -47,7 +50,8 @@ function* generateField(action) {
 
 function* resizeField(action) {
 	const currentField = yield select(fieldSelector)
-	const field = resize(
+	const field = yield call(
+		resize,
 		currentField,
 		action.payload.rowCount,
 		action.payload.colCount,
@@ -57,7 +61,7 @@ function* resizeField(action) {
 
 function* step() {
 	const currentField = yield select(fieldSelector)
-	const newField = calculateNextField(currentField)
+	const newField = yield call(calculateNextField, currentField)
 	yield put(setField(newField))
 }
 
@@ -84,10 +88,10 @@ function* scheduleNextStep() {
 }
 
 export function* gameOfLifeSaga() {
+	yield takeEvery(initAction, initializeField)
 	yield takeEvery(resetAction, generateField)
 	yield takeEvery(resizeAction, resizeField)
 	yield takeEvery(stepAction, step)
 	yield takeEvery(setAutoplay, start)
 	yield takeLatest([changeCell, setField], scheduleNextStep)
-	yield call(initializeField)
 }

@@ -33,6 +33,7 @@ export const gameOfLifeSlice = createSlice({
 	},
 })
 
+export const initAction = createAction<number>('gameOfLife/init')
 export const resetAction = createAction<number>('gameOfLife/reset')
 export const resizeAction = createAction<FieldSize>('gameOfLife/resize')
 export const stepAction = createAction('gameOfLife/step')
