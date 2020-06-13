@@ -18,7 +18,29 @@ const expectGameSaga = (state: IState) => {
 	return expectSaga(gameOfLifeSaga).withReducer(reducer, state)
 }
 
+jest.mock('./engine')
+
 describe('resize', () => {
+	it('should call engine.resize() with current field', async () => {
+		const initialField = {
+			rowCount: 2,
+			colCount: 2,
+			cells: [
+				[false, true],
+				[true, false],
+			],
+		}
+		const state = initState((state) => {
+			state.field = initialField
+		})
+
+		await expectGameSaga(state)
+			.dispatch(resizeAction({ rowCount: 3, colCount: 3 }))
+			.run()
+
+		expect(resize).toBeCalledWith(initialField, 3, 3)
+	})
+
 	it('should resize field', async () => {
 		const state = initState((state) => {
 			state.field = {
@@ -40,6 +62,8 @@ describe('resize', () => {
 				[false, false, false],
 			],
 		}
+
+		;(resize as jest.Mock).mockImplementation(() => expectedField)
 
 		const result = await expectGameSaga(state)
 			.dispatch(resizeAction({ rowCount: 3, colCount: 3 }))
