@@ -109,8 +109,8 @@ describe('step', () => {
 			rowCount: 2,
 			colCount: 2,
 			cells: [
-				[true, true],
-				[true, true],
+				[true, false],
+				[false, true],
 			],
 		}
 
