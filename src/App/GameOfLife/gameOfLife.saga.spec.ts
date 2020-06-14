@@ -3,11 +3,18 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import { Field, calculateNextField, getInitialState, resize } from './engine'
 import { IGameOfLifeState, gameOfLifeInitialState } from './gameOfLife.state'
 import { IState, reducer } from '../../store'
-import { resetAction, resizeAction, stepAction } from './gameOfLife.slice'
+import {
+	resetAction,
+	resizeAction,
+	setField,
+	stepAction,
+} from './gameOfLife.slice'
 
 import { expectSaga } from 'redux-saga-test-plan'
 import { gameOfLifeSaga } from './gameOfLife.saga'
 import produce from 'immer'
+
+expectSaga.DEFAULT_TIMEOUT = 50
 
 const initState = (modifier: (gameState: IGameOfLifeState) => void): IState => {
 	const gameOfLifeInit = produce(gameOfLifeInitialState, modifier)
@@ -18,10 +25,42 @@ const expectGameSaga = (state: IState) => {
 	return expectSaga(gameOfLifeSaga).withReducer(reducer, state)
 }
 
-jest.mock('./engine')
-
 describe('resize', () => {
-	it('should call engine.resize() with current field', async () => {
+	it('should resize field', () => {
+		const initialField = {
+			rowCount: 2,
+			colCount: 2,
+			cells: [
+				[false, true],
+				[true, false],
+			],
+		}
+
+		const state = initState((state) => {
+			state.field = initialField
+		})
+
+		const resizedField: Field = {
+			rowCount: 3,
+			colCount: 3,
+			cells: [
+				[false, true, false],
+				[true, false, false],
+				[false, false, false],
+			],
+		}
+
+		return expectGameSaga(state)
+			.provide([[matchers.call.fn(resize), resizedField]])
+			.dispatch(resizeAction({ rowCount: 3, colCount: 3 }))
+			.call(resize, initialField, 3, 3)
+			.put(setField(resizedField))
+			.run()
+	})
+})
+
+describe('reset', () => {
+	it('should reset field', () => {
 		const initialField = {
 			rowCount: 2,
 			colCount: 2,
@@ -34,59 +73,7 @@ describe('resize', () => {
 			state.field = initialField
 		})
 
-		await expectGameSaga(state)
-			.dispatch(resizeAction({ rowCount: 3, colCount: 3 }))
-			.run()
-
-		expect(resize).toBeCalledWith(initialField, 3, 3)
-	})
-
-	it('should resize field', async () => {
-		const state = initState((state) => {
-			state.field = {
-				rowCount: 2,
-				colCount: 2,
-				cells: [
-					[false, true],
-					[true, false],
-				],
-			}
-		})
-
-		const expectedField: Field = {
-			rowCount: 3,
-			colCount: 3,
-			cells: [
-				[false, true, false],
-				[true, false, false],
-				[false, false, false],
-			],
-		}
-
-		;(resize as jest.Mock).mockImplementation(() => expectedField)
-
-		const result = await expectGameSaga(state)
-			.dispatch(resizeAction({ rowCount: 3, colCount: 3 }))
-			.run()
-
-		expect(result.storeState.gameOfLife.field).toEqual(expectedField)
-	})
-})
-
-describe('reset', () => {
-	it('should reset field', async () => {
-		const state = initState((state) => {
-			state.field = {
-				rowCount: 2,
-				colCount: 2,
-				cells: [
-					[false, true],
-					[true, false],
-				],
-			}
-		})
-
-		const mockedField: Field = {
+		const regeneratedField: Field = {
 			rowCount: 2,
 			colCount: 2,
 			cells: [
@@ -95,29 +82,30 @@ describe('reset', () => {
 			],
 		}
 
-		const result = await expectGameSaga(state)
-			.provide([[matchers.call.fn(getInitialState), mockedField]])
+		return expectGameSaga(state)
+			.provide([[matchers.call.fn(getInitialState), regeneratedField]])
 			.dispatch(resetAction(0.4))
+			.call(getInitialState, 2, 2, 0.4)
+			.put(setField(regeneratedField))
 			.run()
-
-		expect(result.storeState.gameOfLife.field).toEqual(mockedField)
 	})
 })
 
 describe('step', () => {
-	it('should perform single step', async () => {
+	it('should perform single step', () => {
+		const initialField = {
+			rowCount: 2,
+			colCount: 2,
+			cells: [
+				[false, true],
+				[true, false],
+			],
+		}
 		const state = initState((state) => {
-			state.field = {
-				rowCount: 2,
-				colCount: 2,
-				cells: [
-					[false, true],
-					[true, false],
-				],
-			}
+			state.field = initialField
 		})
 
-		const mockedField: Field = {
+		const resultField: Field = {
 			rowCount: 2,
 			colCount: 2,
 			cells: [
@@ -126,11 +114,11 @@ describe('step', () => {
 			],
 		}
 
-		const result = await expectGameSaga(state)
-			.provide([[matchers.call.fn(calculateNextField), mockedField]])
+		return expectGameSaga(state)
+			.provide([[matchers.call.fn(calculateNextField), resultField]])
 			.dispatch(stepAction())
+			.call(calculateNextField, initialField)
+			.put(setField(resultField))
 			.run()
-
-		expect(result.storeState.gameOfLife.field).toEqual(mockedField)
 	})
 })
