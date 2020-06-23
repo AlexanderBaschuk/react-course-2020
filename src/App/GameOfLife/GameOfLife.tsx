@@ -25,11 +25,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 	const [autoplay, setAutoplay] = useState(false)
 	const [speed, setSpeed] = useState(100)
-	const [animate, setAnimate] = useState(false)
 
 	const toggleAutoplay = useCallback(() => {
 		if (!autoplay) {
-			setAnimate(true)
 			step()
 		}
 		setAutoplay(!autoplay)
@@ -43,7 +41,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 
 	const invertCell = useCallback(
 		(row: number, col: number) => {
-			setAnimate(false)
 			changeCell(row, col)
 		},
 		[changeCell],
@@ -81,8 +78,6 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({
 				field={field}
 				cellSize={cellSize}
 				clickCell={invertCell}
-				animate={animate}
-				duration={150}
 			/>
 		</>
 	)

@@ -42,8 +42,6 @@ export const GameFieldStory: React.FC = () => {
 		<GameField
 			field={field}
 			cellSize={number('cellSize', 20)}
-			animate={false}
-			duration={100}
 			clickCell={action('clickCell')}
 		/>
 	)
@@ -78,15 +76,11 @@ export const CellStory: React.FC = () => (
 			cellSize={number('size', 20)}
 			isAlive={false}
 			onClick={action('onClick')}
-			animate={false}
-			duration={100}
 		/>
 		<CellStyled
 			cellSize={number('size', 20)}
 			isAlive={true}
 			onClick={action('onClick')}
-			animate={false}
-			duration={100}
 		/>
 	</>
 )

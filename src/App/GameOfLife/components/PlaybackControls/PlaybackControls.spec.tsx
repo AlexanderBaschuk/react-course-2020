@@ -47,7 +47,7 @@ describe('Playback controls', () => {
 			/>,
 		)
 		const speedInput = el.find('form input[type="text"]')
-		speedInput.getDOMNode<HTMLInputElement>().value = '15';
+		speedInput.getDOMNode<HTMLInputElement>().value = '15'
 		speedInput.simulate('change')
 		el.find('form input[type="submit"]').simulate('submit')
 		expect(setSpeedMock).toHaveBeenCalledWith(15)
@@ -65,7 +65,7 @@ describe('Playback controls', () => {
 			/>,
 		)
 		const speedInput = el.find('form input[type="text"]')
-		speedInput.getDOMNode<HTMLInputElement>().value = '15';
+		speedInput.getDOMNode<HTMLInputElement>().value = '15'
 		speedInput.simulate('change')
 		const decreaseButton = el.find('form button').at(0)
 		decreaseButton.simulate('click')
@@ -84,7 +84,7 @@ describe('Playback controls', () => {
 			/>,
 		)
 		const speedInput = el.find('form input[type="text"]')
-		speedInput.getDOMNode<HTMLInputElement>().value = '15';
+		speedInput.getDOMNode<HTMLInputElement>().value = '15'
 		speedInput.simulate('change')
 		const increaseButton = el.find('form button').at(1)
 		increaseButton.simulate('click')

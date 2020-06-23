@@ -14,7 +14,7 @@ describe('App routing', () => {
 			</Router>,
 		)
 		expect(history.location.pathname).toBe('/login')
-		
+
 		const prompt = app.find('h1').text()
 		expect(prompt).toBe('Enter your name')
 	})
@@ -29,7 +29,7 @@ describe('App routing', () => {
 		)
 
 		const loginInput = app.find('input[type="text"]')
-		loginInput.getDOMNode<HTMLInputElement>().value = 'John';
+		loginInput.getDOMNode<HTMLInputElement>().value = 'John'
 		loginInput.simulate('change')
 
 		const loginButton = app.find('input[type="submit"]')

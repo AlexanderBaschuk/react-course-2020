@@ -1,6 +1,6 @@
+import { FieldControls } from '.'
 import React from 'react'
 import { mount } from 'enzyme'
-import { FieldControls } from '.'
 
 describe('Field controls', () => {
 	it('should set density 0 when pressing the Clear button', () => {
@@ -34,11 +34,11 @@ describe('Field controls', () => {
 		)
 		const fieldSizeForm = el.find('form').at(0)
 		const rowsInput = fieldSizeForm.find('input[type="text"]').at(0)
-		rowsInput.getDOMNode<HTMLInputElement>().value = '15';
+		rowsInput.getDOMNode<HTMLInputElement>().value = '15'
 		rowsInput.simulate('change')
 
 		const columnsInput = fieldSizeForm.find('input[type="text"]').at(1)
-		columnsInput.getDOMNode<HTMLInputElement>().value = '20';
+		columnsInput.getDOMNode<HTMLInputElement>().value = '20'
 		columnsInput.simulate('change')
 
 		const submitButton = fieldSizeForm.find('input[type="submit"]')
@@ -61,7 +61,7 @@ describe('Field controls', () => {
 		)
 		const densityForm = el.find('form').at(1)
 		const rowsInput = densityForm.find('input[type="text"]')
-		rowsInput.getDOMNode<HTMLInputElement>().value = '0.8';
+		rowsInput.getDOMNode<HTMLInputElement>().value = '0.8'
 		rowsInput.simulate('change')
 
 		const submitButton = densityForm.find('input[type="submit"]')
