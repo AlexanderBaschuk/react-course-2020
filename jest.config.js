@@ -4,6 +4,10 @@ module.exports = {
 	coverageDirectory: 'coverage',
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jestSettings.js'],
+	moduleNameMapper: {
+		'@src/(.*)$': '<rootDir>/src/$1',
+		'@GameOfLife/(.*)$': '<rootDir>/src/App/GameOfLife/$1',
+	},
 	transform: {
 		'^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
 	},

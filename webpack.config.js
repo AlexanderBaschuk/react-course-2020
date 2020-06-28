@@ -8,6 +8,10 @@ module.exports = {
 	devtool: 'source-map',
 	resolve: {
 		extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
+		alias: {
+			"@src": path.resolve(__dirname, "src"),
+			"@GameOfLife": path.resolve(__dirname, "src/App/GameOfLife"),
+		}
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),

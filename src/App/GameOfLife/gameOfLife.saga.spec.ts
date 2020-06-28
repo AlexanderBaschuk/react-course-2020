@@ -2,7 +2,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 
 import { Field, calculateNextField, getInitialState, resize } from './engine'
 import { IGameOfLifeState, gameOfLifeInitialState } from './gameOfLife.state'
-import { IState, reducer } from '../../store'
+import { IState, reducer } from '@src/store'
 import {
 	resetAction,
 	resizeAction,

@@ -1,7 +1,7 @@
 import { GameFieldStyled, RowStyled } from './GameField.styles'
 
 import { CellStyled } from '.'
-import { Field } from '../../engine'
+import { Field } from '@GameOfLife/engine'
 import React from 'react'
 
 interface IGameFieldProps {

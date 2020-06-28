@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import createMockStore from 'redux-mock-store'
 import { mount } from 'enzyme'
-import { reducer } from '../../store'
+import { reducer } from '@src/store'
 
 const field: Field = {
 	rowCount: 2,

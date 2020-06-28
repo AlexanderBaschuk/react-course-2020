@@ -1,10 +1,10 @@
-import { setAutoplay, setSpeed, stepAction } from '../../gameOfLife.slice'
+import { setAutoplay, setSpeed, stepAction } from '@GameOfLife/gameOfLife.slice'
 
 import { PlaybackControls } from '.'
 import { Provider } from 'react-redux'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import { gameOfLifeInitialState } from '../../gameOfLife.state'
+import { gameOfLifeInitialState } from '@GameOfLife/gameOfLife.state'
 import { mount } from 'enzyme'
 
 const createStore = () => {
