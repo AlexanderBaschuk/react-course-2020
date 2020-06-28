@@ -1,11 +1,12 @@
+import { changeCell, setField } from './gameOfLife.slice'
+
 import { Field } from './engine'
 import { GameOfLife } from './GameOfLife'
 import { Provider } from 'react-redux'
 import React from 'react'
-import { changeCell } from './gameOfLife.slice'
 import createMockStore from 'redux-mock-store'
-import { gameOfLifeInitialState } from './gameOfLife.state'
 import { mount } from 'enzyme'
+import { reducer } from '../../store'
 
 const field: Field = {
 	rowCount: 2,
@@ -15,6 +16,7 @@ const field: Field = {
 		[false, false],
 	],
 }
+
 const getCell = (field: any, row: number, column: number) => {
 	const result = field.find(
 		`Styled(div)[data-row=${row}][data-column=${column}]`,
@@ -26,9 +28,10 @@ const getCell = (field: any, row: number, column: number) => {
 
 const createStore = () => {
 	const mockStore = createMockStore()
-	const initialState = { gameOfLife: gameOfLifeInitialState }
-	initialState.gameOfLife.field = field
+	const initialState = reducer(undefined, {type: 'get_initial_state'})
 	const store = mockStore(initialState)
+	store.dispatch(setField(field))
+	store.clearActions()
 	return store
 }
 
