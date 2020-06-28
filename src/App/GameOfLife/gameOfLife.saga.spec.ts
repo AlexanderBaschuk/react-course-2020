@@ -10,14 +10,14 @@ import {
 	stepAction,
 } from './gameOfLife.slice'
 
+import { createNextState } from '@reduxjs/toolkit'
 import { expectSaga } from 'redux-saga-test-plan'
 import { gameOfLifeSaga } from './gameOfLife.saga'
-import produce from 'immer'
 
 expectSaga.DEFAULT_TIMEOUT = 50
 
 const initState = (modifier: (gameState: IGameOfLifeState) => void): IState => {
-	const gameOfLifeInit = produce(gameOfLifeInitialState, modifier)
+	const gameOfLifeInit = createNextState(gameOfLifeInitialState, modifier)
 	return { gameOfLife: gameOfLifeInit }
 }
 
