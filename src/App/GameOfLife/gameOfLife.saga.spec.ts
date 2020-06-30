@@ -2,7 +2,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 
 import { Field, calculateNextField, getInitialState, resize } from './engine'
 import { IGameOfLifeState, gameOfLifeInitialState } from './gameOfLife.state'
-import { IState, reducer } from '@/store'
+import { State, reducer } from '@/store'
 import {
 	resetAction,
 	resizeAction,
@@ -16,12 +16,12 @@ import { gameOfLifeSaga } from './gameOfLife.saga'
 
 expectSaga.DEFAULT_TIMEOUT = 50
 
-const initState = (modifier: (gameState: IGameOfLifeState) => void): IState => {
+const initState = (modifier: (gameState: IGameOfLifeState) => void): State => {
 	const gameOfLifeInit = createNextState(gameOfLifeInitialState, modifier)
 	return { gameOfLife: gameOfLifeInit }
 }
 
-const expectGameSaga = (state: IState) => {
+const expectGameSaga = (state: State) => {
 	return expectSaga(gameOfLifeSaga).withReducer(reducer, state)
 }
 

@@ -1,7 +1,7 @@
-import { IState } from "src/store"
+import { State } from "src/store"
 import { createSelector } from "@reduxjs/toolkit"
 
-const gameOfLifeSelector = (state: IState) => state.gameOfLife
+const gameOfLifeSelector = (state: State) => state.gameOfLife
 
 export const fieldSelector = createSelector(
 	gameOfLifeSelector,

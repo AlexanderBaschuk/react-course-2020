@@ -22,4 +22,4 @@ export const store = configureStore({
 
 sagaMiddleware.run(saga)
 
-export type IState = ReturnType<typeof reducer>
+export type State = ReturnType<typeof reducer>
