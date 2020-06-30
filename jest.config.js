@@ -5,7 +5,7 @@ module.exports = {
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jestSettings.js'],
 	moduleNameMapper: {
-		'@src/(.*)$': '<rootDir>/src/$1',
+		'@/(.*)$': '<rootDir>/src/$1',
 		'@GameOfLife/(.*)$': '<rootDir>/src/App/GameOfLife/$1',
 	},
 	transform: {

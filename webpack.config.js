@@ -9,7 +9,7 @@ module.exports = {
 	resolve: {
 		extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
 		alias: {
-			"@src": path.resolve(__dirname, "src"),
+			"@": path.resolve(__dirname, "src"),
 			"@GameOfLife": path.resolve(__dirname, "src/App/GameOfLife"),
 		}
 	},

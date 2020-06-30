@@ -5,7 +5,7 @@
 		"jsx": "react",
 		"paths": {
 			"@GameOfLife/*": ["src/App/GameOfLife/*"],
-			"@src/*": ["src/*"],
+			"@/*": ["src/*"],
 		}
 	},
 	"jsx": "react",
