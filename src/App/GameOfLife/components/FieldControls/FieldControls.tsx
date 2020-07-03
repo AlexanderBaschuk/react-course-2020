@@ -10,9 +10,9 @@ import {
 	DEFAULT_COL_COUNT,
 	DEFAULT_DENSITY,
 	DEFAULT_ROW_COUNT,
-} from '@GameOfLife/gameOfLife.state'
+} from '@/App/GameOfLife/gameOfLife.state'
 import React, { useCallback, useRef } from 'react'
-import { resetAction, resizeAction } from '@GameOfLife/gameOfLife.slice'
+import { resetAction, resizeAction } from '@/App/GameOfLife/gameOfLife.slice'
 
 import { useDispatch } from 'react-redux'
 

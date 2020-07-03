@@ -6,10 +6,14 @@ import {
 	PlaybackControlsWrapperStyled,
 } from './PlaybackControls.styles'
 import React, { useCallback, useRef } from 'react'
-import { setAutoplay, setSpeed, stepAction } from '@GameOfLife/gameOfLife.slice'
+import {
+	setAutoplay,
+	setSpeed,
+	stepAction,
+} from '@/App/GameOfLife/gameOfLife.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { autoplaySelector } from '@GameOfLife/gameOfLife.selectors'
+import { autoplaySelector } from '@/App/GameOfLife/gameOfLife.selectors'
 
 export const PlaybackControls: React.FC = () => {
 	const dispatch = useDispatch()

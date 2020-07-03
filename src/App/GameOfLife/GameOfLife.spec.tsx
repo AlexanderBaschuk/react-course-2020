@@ -28,7 +28,7 @@ const getCell = (field: any, row: number, column: number) => {
 
 const createStore = () => {
 	const mockStore = createMockStore()
-	const initialState = reducer(undefined, {type: 'get_initial_state'})
+	const initialState = reducer(undefined, { type: 'get_initial_state' })
 	const store = mockStore(initialState)
 	store.dispatch(setField(field))
 	store.clearActions()

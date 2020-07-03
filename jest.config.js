@@ -6,7 +6,6 @@ module.exports = {
 	setupFilesAfterEnv: ['<rootDir>/jestSettings.js'],
 	moduleNameMapper: {
 		'@/(.*)$': '<rootDir>/src/$1',
-		'@GameOfLife/(.*)$': '<rootDir>/src/App/GameOfLife/$1',
 	},
 	transform: {
 		'^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',

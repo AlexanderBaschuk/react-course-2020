@@ -22,7 +22,9 @@ export const GameOfLife: React.FC<GameOfLifeProps> = ({ cellSize }) => {
 		[dispatch],
 	)
 
-	useEffect(() => {dispatch(initAction())}, [dispatch])
+	useEffect(() => {
+		dispatch(initAction())
+	}, [dispatch])
 
 	return (
 		<>

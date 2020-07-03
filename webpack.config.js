@@ -9,9 +9,8 @@ module.exports = {
 	resolve: {
 		extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
 		alias: {
-			"@": path.resolve(__dirname, "src"),
-			"@GameOfLife": path.resolve(__dirname, "src/App/GameOfLife"),
-		}
+			'@': path.resolve(__dirname, 'src'),
+		},
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),

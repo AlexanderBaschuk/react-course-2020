@@ -1,10 +1,10 @@
-import { resetAction, resizeAction } from '@GameOfLife/gameOfLife.slice'
+import { resetAction, resizeAction } from '@/App/GameOfLife/gameOfLife.slice'
 
 import { FieldControls } from '.'
 import { Provider } from 'react-redux'
 import React from 'react'
 import configureStore from 'redux-mock-store'
-import { gameOfLifeInitialState } from '@GameOfLife/gameOfLife.state'
+import { gameOfLifeInitialState } from '@/App/GameOfLife/gameOfLife.state'
 import { mount } from 'enzyme'
 
 const createStore = () => {

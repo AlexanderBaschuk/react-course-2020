@@ -1,5 +1,5 @@
-import { State } from "src/store"
-import { createSelector } from "@reduxjs/toolkit"
+import { State } from 'src/store'
+import { createSelector } from '@reduxjs/toolkit'
 
 const gameOfLifeSelector = (state: State) => state.gameOfLife
 
