@@ -7,9 +7,9 @@ import {
 } from './PlaybackControls.styles'
 import React, { useCallback, useRef } from 'react'
 import {
-	setAutoplay,
 	setSpeed,
 	stepAction,
+	toggleAutoplay,
 } from '@/App/GameOfLife/gameOfLife.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -21,7 +21,7 @@ export const PlaybackControls: React.FC = () => {
 	const speedInput = useRef<HTMLInputElement>()
 
 	const togglePlay = useCallback(() => {
-		dispatch(setAutoplay())
+		dispatch(toggleAutoplay())
 	}, [dispatch])
 
 	const step = useCallback((): void => {

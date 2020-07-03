@@ -22,7 +22,7 @@ export const gameOfLifeSlice = createSlice({
 		changeCell(state: IGameOfLifeState, action: PayloadAction<Coordinates>) {
 			state.field = invertOneCell(state.field, action.payload.row, action.payload.col)
 		},
-		setAutoplay(state: IGameOfLifeState) {
+		toggleAutoplay(state: IGameOfLifeState) {
 			state.autoplay = !state.autoplay
 		},
 		setSpeed(state: IGameOfLifeState, action: PayloadAction<number>) {
@@ -41,6 +41,6 @@ export const stepAction = createAction('gameOfLife/step')
 export const {
 	setField,
 	changeCell,
-	setAutoplay,
+	toggleAutoplay,
 	setSpeed,
 } = gameOfLifeSlice.actions

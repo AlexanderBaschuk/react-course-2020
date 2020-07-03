@@ -1,7 +1,7 @@
 import {
-	setAutoplay,
 	setSpeed,
 	stepAction,
+	toggleAutoplay,
 } from '@/App/GameOfLife/gameOfLife.slice'
 
 import { PlaybackControls } from '.'
@@ -38,7 +38,7 @@ describe('Playback controls', () => {
 		)
 		const stepButton = el.find('button[data-testid="start-stop-button"]')
 		stepButton.simulate('click')
-		expect(store.getActions()).toContainEqual(setAutoplay())
+		expect(store.getActions()).toContainEqual(toggleAutoplay())
 	})
 
 	it('should dispatch setSpeed when submitting speed change', () => {

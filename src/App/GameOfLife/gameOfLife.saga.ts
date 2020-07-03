@@ -22,9 +22,9 @@ import {
 	initAction,
 	resetAction,
 	resizeAction,
-	setAutoplay,
 	setField,
 	stepAction,
+	toggleAutoplay,
 } from './gameOfLife.slice'
 
 function* initializeField() {
@@ -92,6 +92,6 @@ export function* gameOfLifeSaga() {
 	yield takeEvery(resetAction, generateField)
 	yield takeEvery(resizeAction, resizeField)
 	yield takeEvery(stepAction, step)
-	yield takeEvery(setAutoplay, start)
+	yield takeEvery(toggleAutoplay, start)
 	yield takeLatest([changeCell, setField], scheduleNextStep)
 }
