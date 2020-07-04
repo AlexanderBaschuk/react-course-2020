@@ -8,12 +8,10 @@ import createMockStore from 'redux-mock-store'
 import { mount } from 'enzyme'
 import { reducer } from '@/store'
 
-const field: Field = {
-	cells: [
-		[false, false],
-		[false, false],
-	],
-}
+const field: Field = [
+	[false, false],
+	[false, false],
+]
 
 const getCell = (field: any, row: number, column: number) => {
 	const result = field.find(

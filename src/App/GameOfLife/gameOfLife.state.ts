@@ -13,5 +13,5 @@ export interface IGameOfLifeState {
 export const gameOfLifeInitialState: IGameOfLifeState = {
 	autoplay: false,
 	speed: 100,
-	field: { cells: [[false]] },
+	field: [[false]],
 }

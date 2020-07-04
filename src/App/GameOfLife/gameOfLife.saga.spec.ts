@@ -27,24 +27,20 @@ const expectGameSaga = (state: State) => {
 
 describe('resize', () => {
 	it('should resize field', () => {
-		const initialField = {
-			cells: [
-				[false, true],
-				[true, false],
-			],
-		}
+		const initialField = [
+			[false, true],
+			[true, false],
+		]
 
 		const state = initState((state) => {
 			state.field = initialField
 		})
 
-		const resizedField: Field = {
-			cells: [
-				[false, true, false],
-				[true, false, false],
-				[false, false, false],
-			],
-		}
+		const resizedField: Field = [
+			[false, true, false],
+			[true, false, false],
+			[false, false, false],
+		]
 
 		return expectGameSaga(state)
 			.provide([[matchers.call.fn(resize), resizedField]])
@@ -57,22 +53,18 @@ describe('resize', () => {
 
 describe('reset', () => {
 	it('should reset field', () => {
-		const initialField = {
-			cells: [
-				[false, true],
-				[true, false],
-			],
-		}
+		const initialField = [
+			[false, true],
+			[true, false],
+		]
 		const state = initState((state) => {
 			state.field = initialField
 		})
 
-		const regeneratedField: Field = {
-			cells: [
-				[true, true],
-				[true, true],
-			],
-		}
+		const regeneratedField: Field = [
+			[true, true],
+			[true, true],
+		]
 
 		return expectGameSaga(state)
 			.provide([[matchers.call.fn(getInitialState), regeneratedField]])
@@ -85,22 +77,18 @@ describe('reset', () => {
 
 describe('step', () => {
 	it('should perform single step', () => {
-		const initialField = {
-			cells: [
-				[false, true],
-				[true, false],
-			],
-		}
+		const initialField = [
+			[false, true],
+			[true, false],
+		]
 		const state = initState((state) => {
 			state.field = initialField
 		})
 
-		const resultField: Field = {
-			cells: [
-				[true, false],
-				[false, true],
-			],
-		}
+		const resultField: Field = [
+			[true, false],
+			[false, true],
+		]
 
 		return expectGameSaga(state)
 			.provide([[matchers.call.fn(calculateNextField), resultField]])

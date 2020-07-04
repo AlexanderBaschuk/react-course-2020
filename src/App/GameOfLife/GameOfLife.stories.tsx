@@ -21,15 +21,13 @@ export const GameOfLifeStory: React.FC = () => {
 }
 
 export const GameFieldStory: React.FC = () => {
-	const field: Field = {
-		cells: [
-			[false, false, false, false, false],
-			[false, false, true, false, false],
-			[false, false, false, true, false],
-			[false, true, true, true, false],
-			[false, false, false, false, false],
-		],
-	}
+	const field: Field = [
+		[false, false, false, false, false],
+		[false, false, true, false, false],
+		[false, false, false, true, false],
+		[false, true, true, true, false],
+		[false, false, false, false, false],
+	]
 	return <GameField cellSize={number('cellSize', 20)} />
 }
 

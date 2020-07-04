@@ -28,7 +28,7 @@ export const GameField: React.FC<IGameFieldProps> = ({ cellSize }) => {
 
 	return (
 		<GameFieldStyled>
-			{field.cells.map((row, i) => (
+			{field.map((row, i) => (
 				<RowStyled key={i} height={cellSize}>
 					{row.map((value, j) => (
 						<CellStyled

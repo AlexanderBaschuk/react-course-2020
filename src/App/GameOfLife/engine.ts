@@ -1,4 +1,4 @@
-export type Field = { cells: boolean[][] }
+export type Field = boolean[][]
 
 function getCellValueByDensity(density?: number): boolean {
 	if (!density) return false
@@ -7,8 +7,8 @@ function getCellValueByDensity(density?: number): boolean {
 }
 
 export const getDimensions = (field: Field): [number, number] => {
-	const rowCount = field.cells.length
-	const colCount = rowCount === 0 ? 0 : field.cells[0].length
+	const rowCount = field.length
+	const colCount = rowCount === 0 ? 0 : field[0].length
 	return [rowCount, colCount]
 }
 
@@ -17,11 +17,11 @@ export const getInitialState = (
 	colCount: number,
 	density?: number,
 ): Field => {
-	const cells = Array.from(Array(rowCount), () =>
+	const field = Array.from(Array(rowCount), () =>
 		Array.from(Array(colCount), () => getCellValueByDensity(density)),
 	)
 
-	return { cells }
+	return field
 }
 
 export const resize = (
@@ -39,11 +39,11 @@ export const resize = (
 		}
 
 		for (let c = 0; c < colCount; c++) {
-			row[c] = c >= currentColCount ? false : field.cells[r][c] ?? false
+			row[c] = c >= currentColCount ? false : field[r][c] ?? false
 		}
 		resultCells[r] = row
 	}
-	return { cells: resultCells }
+	return resultCells
 }
 
 export const invertOneCell = (
@@ -51,9 +51,9 @@ export const invertOneCell = (
 	row: number,
 	col: number,
 ): Field => {
-	const newCells = field.cells.map((currentRow) => [...currentRow])
+	const newCells = field.map((currentRow) => [...currentRow])
 	newCells[row][col] = !newCells[row][col]
-	return { cells: newCells }
+	return newCells
 }
 
 export const countNeighbours = (
@@ -70,7 +70,7 @@ export const countNeighbours = (
 				continue
 			}
 			if (
-				field.cells[(rowCount + row + i) % rowCount][
+				field[(rowCount + row + i) % rowCount][
 					(colCount + col + j) % colCount
 				]
 			) {
@@ -82,16 +82,16 @@ export const countNeighbours = (
 
 export const calculateNextField = (field: Field): Field => {
 	const [rowCount, colCount] = getDimensions(field)
-	const newCells = field.cells.map((row) => [...row])
+	const newCells = field.map((row) => [...row])
 	for (let r = 0; r < rowCount; r++) {
 		for (let c = 0; c < colCount; c++) {
 			const neighbours = countNeighbours(field, r, c)
-			if (field.cells[r][c]) {
+			if (field[r][c]) {
 				newCells[r][c] = neighbours == 2 || neighbours == 3
 			} else {
 				newCells[r][c] = neighbours == 3
 			}
 		}
 	}
-	return { cells: newCells }
+	return newCells
 }
