@@ -4,7 +4,7 @@ import {
 	GameField,
 	PlaybackControls,
 } from './components'
-import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+import { number, withKnobs } from '@storybook/addon-knobs'
 
 import { Field } from './engine'
 import { GameOfLife } from '.'
@@ -19,8 +19,6 @@ export default {
 export const GameOfLifeStory: React.FC = () => {
 	return (
 		<GameOfLife
-			rowCount={number('rowCount', 10)}
-			colCount={number('colCount', 10)}
 			cellSize={number('cellSize', 20)}
 		/>
 	)
@@ -49,24 +47,13 @@ export const GameFieldStory: React.FC = () => {
 
 export const FieldControlsStory: React.FC = () => {
 	return (
-		<FieldControls
-			rowCount={number('rowCount', 10)}
-			colCount={number('colCount', 10)}
-			setSize={action('setSize')}
-			density={number('density', 0.4)}
-			setDensity={action('setDensity')}
-		/>
+		<FieldControls />
 	)
 }
 
 export const PlaybackControlsStory: React.FC = () => {
 	return (
-		<PlaybackControls
-			isPlaying={boolean('isPlaying', false)}
-			step={action('step')}
-			togglePlay={action('togglePlay')}
-			setSpeed={action('setSpeed')}
-		/>
+		<PlaybackControls />
 	)
 }
 
