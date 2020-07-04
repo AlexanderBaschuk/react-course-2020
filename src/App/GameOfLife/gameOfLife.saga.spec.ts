@@ -28,8 +28,6 @@ const expectGameSaga = (state: State) => {
 describe('resize', () => {
 	it('should resize field', () => {
 		const initialField = {
-			rowCount: 2,
-			colCount: 2,
 			cells: [
 				[false, true],
 				[true, false],
@@ -41,8 +39,6 @@ describe('resize', () => {
 		})
 
 		const resizedField: Field = {
-			rowCount: 3,
-			colCount: 3,
 			cells: [
 				[false, true, false],
 				[true, false, false],
@@ -62,8 +58,6 @@ describe('resize', () => {
 describe('reset', () => {
 	it('should reset field', () => {
 		const initialField = {
-			rowCount: 2,
-			colCount: 2,
 			cells: [
 				[false, true],
 				[true, false],
@@ -74,8 +68,6 @@ describe('reset', () => {
 		})
 
 		const regeneratedField: Field = {
-			rowCount: 2,
-			colCount: 2,
 			cells: [
 				[true, true],
 				[true, true],
@@ -94,8 +86,6 @@ describe('reset', () => {
 describe('step', () => {
 	it('should perform single step', () => {
 		const initialField = {
-			rowCount: 2,
-			colCount: 2,
 			cells: [
 				[false, true],
 				[true, false],
@@ -106,8 +96,6 @@ describe('step', () => {
 		})
 
 		const resultField: Field = {
-			rowCount: 2,
-			colCount: 2,
 			cells: [
 				[true, false],
 				[false, true],

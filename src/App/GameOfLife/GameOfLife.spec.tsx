@@ -9,8 +9,6 @@ import { mount } from 'enzyme'
 import { reducer } from '@/store'
 
 const field: Field = {
-	rowCount: 2,
-	colCount: 2,
 	cells: [
 		[false, false],
 		[false, false],

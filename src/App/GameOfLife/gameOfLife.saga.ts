@@ -8,7 +8,12 @@ import {
 	fieldSelector,
 	speedSelector,
 } from './gameOfLife.selectors'
-import { calculateNextField, getInitialState, resize } from './engine'
+import {
+	calculateNextField,
+	getDimensions,
+	getInitialState,
+	resize,
+} from './engine'
 import {
 	call,
 	delay,
@@ -39,12 +44,8 @@ function* initializeField() {
 
 function* generateField(action) {
 	const currentField = yield select(fieldSelector)
-	const field = yield call(
-		getInitialState,
-		currentField.rowCount,
-		currentField.colCount,
-		action.payload,
-	)
+	const [rowCount, colCount] = getDimensions(currentField)
+	const field = yield call(getInitialState, rowCount, colCount, action.payload)
 	yield put(setField(field))
 }
 

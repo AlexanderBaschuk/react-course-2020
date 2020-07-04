@@ -17,11 +17,7 @@ export default {
 }
 
 export const GameOfLifeStory: React.FC = () => {
-	return (
-		<GameOfLife
-			cellSize={number('cellSize', 20)}
-		/>
-	)
+	return <GameOfLife cellSize={number('cellSize', 20)} />
 }
 
 export const GameFieldStory: React.FC = () => {
@@ -33,28 +29,16 @@ export const GameFieldStory: React.FC = () => {
 			[false, true, true, true, false],
 			[false, false, false, false, false],
 		],
-		rowCount: 5,
-		colCount: 5,
 	}
-	return (
-		<GameField
-			field={field}
-			cellSize={number('cellSize', 20)}
-			clickCell={action('clickCell')}
-		/>
-	)
+	return <GameField cellSize={number('cellSize', 20)} />
 }
 
 export const FieldControlsStory: React.FC = () => {
-	return (
-		<FieldControls />
-	)
+	return <FieldControls />
 }
 
 export const PlaybackControlsStory: React.FC = () => {
-	return (
-		<PlaybackControls />
-	)
+	return <PlaybackControls />
 }
 
 export const CellStory: React.FC = () => (
