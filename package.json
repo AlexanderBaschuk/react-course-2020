@@ -15,7 +15,7 @@
 		"storybook": "start-storybook -p 6006",
 		"unit": "jest",
 		"e2e": "jest --config jest.e2e.config.js --runInBand",
-		"test": "npm run unit && npm run e2e",
+		"test": "npm run unit",
 		"watch": "webpack --watch --mode development"
 	},
 	"repository": {
