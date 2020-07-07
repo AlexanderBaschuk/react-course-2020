@@ -13,7 +13,9 @@
 		"loki:update": "npm run build-storybook && npx loki update --requireReference --reactUri file:./storybook-static",
 		"start": "webpack-dev-server --mode=development --hot --open",
 		"storybook": "start-storybook -p 6006",
-		"test": "jest",
+		"unit": "jest",
+		"e2e": "jest --config jest.e2e.config.js",
+		"test": "npm run unit && npm run e2e",
 		"watch": "webpack --watch --mode development"
 	},
 	"repository": {
