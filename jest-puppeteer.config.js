@@ -5,8 +5,8 @@ module.exports = {
 		headless: false,
 		sloMo: 250,
 	},
-	/*server: {
-		command: 'node server.js',
-		port: 4444,
-	},*/
+	server: {
+		command: 'npm run start-server-e2e',
+		launchTimeout: 30000,
+	},
 }
