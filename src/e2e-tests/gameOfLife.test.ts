@@ -1,8 +1,20 @@
-import { setDefaultOptions } from 'expect-puppeteer'
+const homeUrl = 'http://localhost:4444'
 
-test('dummy puppeteer test', async () => {
-	const url = 'http://localhost:4444'
-	await page.goto(url, { timeout: 20000 })
-	await expect(page.url()).toMatch(/\/login$/, {timeout: 10001})
-	await expect(page).toMatch('Enter your name', {timeout: 10002})
-}, 30000)
+const setupLogin = async (username: string) => {
+	await page.evaluate((value) => {
+		localStorage.setItem('username', value)
+	}, username ?? 'Autotest')
+}
+
+test('redirects to login from home page', async () => {
+	await page.goto(homeUrl)
+	await expect(page.url()).toMatch(/\/login$/)
+	await expect(page).toMatch('Enter your name')
+})
+
+test('stays on homepage when has username in localStorage', async () => {
+	await setupLogin('John')
+	await page.goto(homeUrl)
+	await expect(page.url()).not.toMatch(/\/login$/)
+	await expect(page).toMatch('Hello, John')
+})

@@ -11,4 +11,5 @@ module.exports = {
 	preset: 'jest-puppeteer',
 	testMatch: ['**/e2e-tests/**/?(*.)+(spec|test).[jt]s?(x)'],
 	verbose: true,
+	setupFilesAfterEnv: ['<rootDir>/jest.e2e.setup.js'],
 }
