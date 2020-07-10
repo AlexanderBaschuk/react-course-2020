@@ -1,10 +1,4 @@
-const homeUrl = 'http://localhost:4444'
-
-const setupLogin = async (username: string) => {
-	await page.evaluate((value) => {
-		localStorage.setItem('username', value)
-	}, username ?? 'Autotest')
-}
+import { homeUrl, setupLogin } from "./testsSetup"
 
 test('redirects to login from home page', async () => {
 	await page.goto(homeUrl)
