@@ -43,8 +43,11 @@ const clickCell = async (row: number, column: number): Promise<void> => {
 	await page.click(cellSelectorRowCol(row, column))
 }
 
-test('at start displays the field having alive and dead cells', async () => {
+beforeEach(async () => {
 	await logIn()
+})
+
+test('at start displays the field having alive and dead cells', async () => {
 	const cells = await getAllCells()
 	const liveCells = cells.filter((c) => c.isAlive)
 	const deadCells = cells.filter((c) => !c.isAlive)
@@ -52,8 +55,7 @@ test('at start displays the field having alive and dead cells', async () => {
 	expect(deadCells.length).toBeGreaterThan(0)
 })
 
-test('click to cell changes its state', async () => {
-	await logIn()
+test('clicking a cell changes its state', async () => {
 	const initialCell = await getCell(2, 3)
 	await clickCell(2, 3)
 	const resultCell = await getCell(2, 3)
