@@ -1,4 +1,4 @@
-import { homeUrl, logIn } from "./testsSetup"
+import { homeUrl } from "./testsSetup"
 
 test('redirects to login from home page', async () => {
 	await page.goto(homeUrl)

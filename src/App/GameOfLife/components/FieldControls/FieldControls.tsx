@@ -49,7 +49,9 @@ export const FieldControls: React.FC = () => {
 	return (
 		<FieldControlsWrapperStyled>
 			<FieldControlsAreaStyled>
-				<ClearButton id="clear-button" onClick={clearField}>Clear</ClearButton>
+				<ClearButton id="clear-button" onClick={clearField}>
+					Clear
+				</ClearButton>
 			</FieldControlsAreaStyled>
 			<FieldControlsAreaStyled>
 				<ControlsPanelStyled>
