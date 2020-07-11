@@ -1,9 +1,15 @@
-import { homeUrl, logIn } from './testsSetup'
-
 import { ElementHandle } from 'puppeteer'
+import { logIn } from './testsSetup'
 
-const liveCellColor = '#000000'
+interface CellInfo {
+	row: string
+	col: string
+	isAlive: boolean
+}
+
 const cellSelector = '[data-row][data-column]'
+const cellSelectorRowCol = (row: number, col: number) =>
+	`[data-row="${row}"][data-column="${col}"]`
 
 const getLiveness = async (elementHandle: ElementHandle) =>
 	await elementHandle.evaluate((element) => element.getAttribute('data-alive'))
@@ -14,16 +20,27 @@ const getRow = async (elementHandle: ElementHandle) =>
 const getColumn = async (elementHandle: ElementHandle) =>
 	await elementHandle.evaluate((element) => element.getAttribute('data-column'))
 
-const getAllCells = async () => {
+const toCellInfo = async (cellElement: ElementHandle) => ({
+	row: await getRow(cellElement),
+	col: await getColumn(cellElement),
+	isAlive: (await getLiveness(cellElement)).toLowerCase() === 'true',
+})
+
+const getAllCells = async (): Promise<CellInfo[]> => {
 	const cellElements = await page.$$(cellSelector)
 	const cells = await Promise.all(
-		cellElements.map(async (ce) => ({
-			row: await getRow(ce),
-			col: await getColumn(ce),
-			isAlive: (await getLiveness(ce)).toLowerCase() === 'true',
-		})),
+		cellElements.map(async (ce) => await toCellInfo(ce)),
 	)
 	return cells
+}
+
+const getCell = async (row: number, column: number): Promise<CellInfo> => {
+	const cellElement = await page.$(cellSelectorRowCol(row, column))
+	return toCellInfo(cellElement)
+}
+
+const clickCell = async (row: number, column: number): Promise<void> => {
+	await page.click(cellSelectorRowCol(row, column))
 }
 
 test('at start displays the field having alive and dead cells', async () => {
@@ -33,4 +50,12 @@ test('at start displays the field having alive and dead cells', async () => {
 	const deadCells = cells.filter((c) => !c.isAlive)
 	expect(liveCells.length).toBeGreaterThan(0)
 	expect(deadCells.length).toBeGreaterThan(0)
+})
+
+test('click to cell changes its state', async () => {
+	await logIn()
+	const initialCell = await getCell(2, 3)
+	await clickCell(2, 3)
+	const resultCell = await getCell(2, 3)
+	expect(resultCell.isAlive).not.toBe(initialCell.isAlive)
 })
