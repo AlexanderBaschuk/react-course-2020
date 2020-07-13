@@ -37,6 +37,7 @@ export const GameField: React.FC<IGameFieldProps> = ({ cellSize }) => {
 							isAlive={value}
 							data-row={i}
 							data-column={j}
+							data-alive={value}
 							onClick={() => clickCell(i, j)}
 						/>
 					))}

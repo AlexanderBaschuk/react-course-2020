@@ -2,13 +2,13 @@
 module.exports = {
 	clearMocks: true,
 	coverageDirectory: 'coverage',
-	testEnvironment: 'jsdom',
-	setupFilesAfterEnv: ['<rootDir>/jestSettings.js'],
 	moduleNameMapper: {
 		'@/(.*)$': '<rootDir>/src/$1',
 	},
 	transform: {
 		'^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
 	},
-	testPathIgnorePatterns: ['/e2e-tests/'],
+	preset: 'jest-puppeteer',
+	testMatch: ['**/e2e-tests/**/?(*.)+(spec|test).[jt]s?(x)'],
+	setupFilesAfterEnv: ['<rootDir>/jest.e2e.setup.js'],
 }

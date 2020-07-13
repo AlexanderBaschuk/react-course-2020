@@ -49,25 +49,29 @@ export const FieldControls: React.FC = () => {
 	return (
 		<FieldControlsWrapperStyled>
 			<FieldControlsAreaStyled>
-				<ClearButton onClick={clearField}>Clear</ClearButton>
+				<ClearButton id="clear-button" onClick={clearField}>
+					Clear
+				</ClearButton>
 			</FieldControlsAreaStyled>
 			<FieldControlsAreaStyled>
 				<ControlsPanelStyled>
 					<form onSubmit={changeSize}>
 						<InputLabel>Field size: </InputLabel>
 						<InputStyled
+							id="size-rows"
 							type="text"
 							title="Rows"
 							defaultValue={DEFAULT_ROW_COUNT}
 							ref={rowsInput}
 						/>
 						<InputStyled
+							id="size-columns"
 							type="text"
 							title="Columns"
 							defaultValue={DEFAULT_COL_COUNT}
 							ref={columnsInput}
 						/>
-						<input type="submit" value="Set size" />
+						<input id="set-size" type="submit" value="Set size" />
 					</form>
 				</ControlsPanelStyled>
 				<ControlsPanelStyled>
